@@ -1,0 +1,2143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>IELTS Study Hub</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F3FF}
+a{color:#5B3FD9}a:hover{color:#3B2799}
+.btn{font:inherit;font-size:14px;font-weight:500;min-height:40px;padding:8px 14px;border-radius:8px;border:1px solid #D3CCEE;background:#FFFFFF;color:#1E1B3A;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;box-sizing:border-box}
+.btn:hover{background:#F1EEFD;color:#1E1B3A}
+.btn-p{background:#5B3FD9;border-color:#5B3FD9;color:#FFFFFF}
+.btn-p:hover{background:#4930B8;color:#FFFFFF}
+.btn:focus-visible,.inp:focus-visible,.nav:focus-visible{outline:3px solid #B7A8F5;outline-offset:2px}
+.inp{font:inherit;font-size:14px;min-height:40px;padding:8px 12px;border-radius:8px;border:1px solid #D3CCEE;background:#FFFFFF;color:#1E1B3A;box-sizing:border-box;width:100%}
+textarea.inp{resize:vertical;line-height:1.6}
+.nav{font:inherit;font-size:15px;text-align:left;width:100%;min-height:42px;padding:9px 14px;border-radius:8px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.flip{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;perspective:1400px;font:inherit;color:inherit;text-align:center}
+.flip-inner{position:relative;min-height:300px;transition:transform .55s ease;transform-style:preserve-3d}
+.face{position:absolute;inset:0;box-sizing:border-box;border-radius:18px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face-back{transform:rotateY(180deg)}
+.flip:focus-visible{outline:3px solid #8DB8DA;outline-offset:4px;border-radius:18px}
+@media (prefers-reduced-motion: reduce){.flip-inner{transition:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</helmet>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #1E1B3A; background: #F5F3FF; min-height: 100vh; display: flex; flex-wrap: wrap; align-items: flex-start">
+
+<!-- Sidebar -->
+<nav aria-label="Main" style="flex: 1 1 220px; max-width: 100%; box-sizing: border-box; padding: 24px 16px; background: #2A1B6B; color: #FFFFFF; align-self: stretch">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px">
+<div style="width: 36px; height: 36px; border-radius: 8px; background: #FF9F43; color: #1E1B3A; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px">B</div>
+<div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px">Band Up</div>
+<div style="font-size: 12px; color: #C9C0F2">IELTS study hub</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="13">
+<sc-if value="{{n.head}}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 11px; color: #A99DE6; text-transform: uppercase; letter-spacing: 0.1em; padding: 16px 14px 6px">{{n.head}}</div>
+</sc-if>
+<button class="nav" onClick="{{n.go}}" style="background: {{n.bg}}; color: {{n.fg}}; font-weight: {{n.fw}}">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 10px; height: 10px; border-radius: 3px; background: {{n.dot}}; flex: none"></span>{{n.label}}</span>
+<sc-if value="{{n.badge}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; font-weight: 600; min-width: 22px; padding: 2px 7px; border-radius: 11px; background: #FF9F43; color: #1E1B3A; text-align: center">{{n.badge}}</span></sc-if>
+</button>
+</sc-for>
+</div>
+<div style="margin: 24px 8px 0; padding: 14px; border-radius: 10px; background: #3A2A85">
+<div style="font-size: 12px; color: #C9C0F2; text-transform: uppercase; letter-spacing: 0.08em">Target band</div>
+<div style="display: flex; align-items: center; gap: 10px; margin-top: 8px">
+<button class="btn" aria-label="Lower target" onClick="{{targetDown}}" style="min-width: 40px; background: #4B38A3; color: #FFFFFF; border-color: #6450C2">−</button>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; flex: 1; text-align: center">{{targetLabel}}</div>
+<button class="btn" aria-label="Raise target" onClick="{{targetUp}}" style="min-width: 40px; background: #4B38A3; color: #FFFFFF; border-color: #6450C2">+</button>
+</div>
+<div style="font-size: 13px; color: #DCD5F8; margin-top: 8px; text-align: center">{{sideDays}}</div>
+</div>
+</nav>
+
+<!-- Content -->
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 32px clamp(16px, 3vw, 40px) 96px">
+<div style="max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div>
+<div style="display: inline-block; font-size: 12px; font-weight: 600; color: #FFFFFF; background: {{pageColor}}; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.08em">{{eyebrow}}</div>
+<h1 style="margin: 4px 0 0; font-family: 'Space Grotesk', sans-serif; font-size: 34px; line-height: 1.15">{{heading}}</h1>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button class="btn" onClick="{{goAdd}}">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+Add phrase</button>
+<label class="btn btn-p" style="cursor: pointer">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"></path><path d="M6 10l6-6 6 6"></path><path d="M4 20h16"></path></svg>
+Upload material
+<input class="sr" type="file" multiple="multiple" onChange="{{onFiles}}">
+</label>
+</div>
+</header>
+
+<sc-if value="{{flash}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="padding: 12px 16px; border-radius: 8px; background: #EEEAFE; color: #3B2799; font-size: 14px">{{flash}}</div>
+</sc-if>
+
+<!-- ============ DASHBOARD ============ -->
+<sc-if value="{{isDash}}" hint-placeholder-val="{{ true }}">
+<section style="background: #5B3FD9; color: #FFFFFF; border-radius: 14px; padding: 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<div style="flex: 1 1 300px; min-width: 0">
+<div style="font-size: 13px; color: #C9C0F2; text-transform: uppercase; letter-spacing: 0.08em">Today's vocabulary session</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; margin-top: 6px">{{planTitle}}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px" role="group" aria-label="Study time">
+<sc-for list="{{minuteOpts}}" as="mo" hint-placeholder-count="3">
+<button class="btn" onClick="{{mo.pick}}" style="background: {{mo.bg}}; color: {{mo.fg}}; border-color: {{mo.bd}}">{{mo.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="flex: 2 1 420px; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{planSteps}}" as="ps" hint-placeholder-count="3">
+<div style="background: #4930B8; border-radius: 10px; padding: 14px">
+<div style="font-size: 12px; color: #C9C0F2">{{ps.step}}</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; margin-top: 4px">{{ps.value}}</div>
+<div style="font-size: 13px; color: #DCD5F8">{{ps.label}}</div>
+<div style="font-size: 12px; color: #FFD166; margin-top: 6px">{{ps.time}}</div>
+</div>
+</sc-for>
+</div>
+<div style="flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 10px">
+<button class="btn" onClick="{{startSession}}" style="background: #FFD166; color: #1E1B3A; border-color: #FFD166; font-weight: 600; min-height: 48px; padding: 0 22px">Start review</button>
+<button class="btn" onClick="{{goSentence}}" style="background: #4B38A3; color: #FFFFFF; border-color: #6450C2; min-height: 48px">Practise sentences</button>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #F0623A; border-radius: 12px; padding: 20px">
+<div style="font-size: 13px; font-weight: 600; color: #C2410C">Exam date</div>
+<input class="inp" type="date" aria-label="Exam date" value="{{examDate}}" onChange="{{setExamDate}}" style="margin-top: 8px">
+<div style="margin-top: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600">{{daysLeftLabel}}</div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #2563EB; border-radius: 12px; padding: 20px">
+<div style="font-size: 13px; font-weight: 600; color: #2563EB">Latest overall band</div>
+<div style="margin-top: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1">{{latestOverall}}</div>
+<div style="margin-top: 8px; font-size: 14px; color: #5B5775">{{gapLabel}}</div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #E8488A; border-radius: 12px; padding: 20px">
+<div style="font-size: 13px; font-weight: 600; color: #C02C6C">Phrases learned / 3-month goal</div>
+<div style="margin-top: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; line-height: 1">{{learnedCount}}<span style="font-size: 18px; color: #5B5775"> / {{goalPhrases}}</span></div>
+<div style="height: 8px; border-radius: 4px; background: #ECE8FA; margin-top: 12px; overflow: hidden"><div style="height: 8px; background: #E8488A; width: {{goalPct}}%"></div></div>
+<div style="margin-top: 8px; font-size: 13px; color: #5B5775">{{perDayLabel}}</div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #0EA5B7; border-radius: 12px; padding: 20px">
+<div style="font-size: 13px; font-weight: 600; color: #0B7C8A">Library</div>
+<div style="margin-top: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1">{{matCount}}</div>
+<div style="margin-top: 8px; font-size: 14px; color: #5B5775">{{studiedLabel}}</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<section style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #16A34A; border-radius: 12px; padding: 20px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Today's plan</h2>
+<span style="font-size: 14px; color: #5B5775">{{planDoneLabel}}</span>
+</div>
+<div style="height: 8px; border-radius: 4px; background: #ECE8FA; margin: 14px 0 6px; overflow: hidden"><div style="height: 8px; background: #5B3FD9; width: {{planPct}}%"></div></div>
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{plan}}" as="p" hint-placeholder-count="4">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px; border-bottom: 1px solid #F0EDFA; cursor: pointer; font-size: 15px">
+<input type="checkbox" checked="{{p.done}}" onChange="{{p.toggle}}" style="width: 18px; height: 18px; accent-color: #5B3FD9">
+<span style="flex: 1; text-decoration: {{p.deco}}; color: {{p.color}}">{{p.text}}</span>
+<button class="btn" aria-label="Delete task" onClick="{{p.remove}}" style="min-height: 32px; padding: 4px 10px; font-size: 13px">Delete</button>
+</label>
+</sc-for>
+</div>
+<div style="display: flex; gap: 8px; margin-top: 14px">
+<input class="inp" aria-label="New task" placeholder="Add a task, e.g. Listening Section 3" value="{{newTask}}" onChange="{{setNewTask}}">
+<button class="btn btn-p" onClick="{{addTask}}">Add</button>
+</div>
+</section>
+
+<section style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #2563EB; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Band by skill</h2>
+<p style="margin: 6px 0 16px; font-size: 14px; color: #5B5775">From your latest mock test. The marker shows your target.</p>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<sc-for list="{{skillBands}}" as="b" hint-placeholder-count="4">
+<div>
+<div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px"><span style="font-weight: 600">{{b.skill}}</span><span>{{b.label}}</span></div>
+<div style="position: relative; height: 10px; border-radius: 5px; background: #ECE8FA">
+<div style="height: 10px; border-radius: 5px; background: {{b.color}}; width: {{b.pct}}%"></div>
+<div style="position: absolute; top: -4px; width: 2px; height: 18px; background: #1E1B3A; left: {{targetPct}}%"></div>
+</div>
+</div>
+</sc-for>
+</div>
+<button class="btn" onClick="{{goTests}}" style="margin-top: 18px">Log a mock test score</button>
+</section>
+</div>
+
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #FF9F43; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">3-month roadmap</h2>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B5775">15–30 minutes a day. Practise academic phrases deeply; everyday phrases only need recognition.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
+<sc-for list="{{phases}}" as="ph" hint-placeholder-count="3">
+<div style="border: 2px solid {{ph.bd}}; background: {{ph.bg}}; border-radius: 10px; padding: 16px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px">{{ph.name}}</div>
+<sc-if value="{{ph.now}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 10px; background: #5B3FD9; color: #FFFFFF">You are here</span></sc-if>
+</div>
+<div style="font-size: 14px; font-weight: 600; margin-top: 6px">{{ph.focus}}</div>
+<div style="font-size: 13px; color: #5B5775; margin-top: 4px; line-height: 1.55">{{ph.detail}}</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #F0623A; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Where your phrases come from</h2>
+<p style="margin: 0 0 14px; font-size: 13px; color: #5B5775">Collect most of them from your own Writing.</p>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{sourceBars}}" as="sb" hint-placeholder-count="4">
+<div>
+<div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px"><span>{{sb.label}}</span><span style="font-weight: 600">{{sb.n}}</span></div>
+<div style="height: 8px; border-radius: 4px; background: #ECE8FA; overflow: hidden"><div style="height: 8px; background: {{sb.color}}; width: {{sb.pct}}%"></div></div>
+</div>
+</sc-for>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #5B3FD9; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Academic vs everyday</h2>
+<p style="margin: 0 0 14px; font-size: 13px; color: #5B5775">Everyday phrases are reviewed half as often and fill at most 30% of a session.</p>
+<div style="display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: #ECE8FA">
+<div style="background: #5B3FD9; width: {{acadPct}}%"></div>
+<div style="background: #FF9F43; width: {{everyPct}}%"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 12px; font-size: 14px">
+<span><span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #5B3FD9; margin-right: 6px"></span>Academic: <strong>{{acadCount}}</strong></span>
+<span><span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #FF9F43; margin-right: 6px"></span>Everyday / spoken: <strong>{{everyCount}}</strong></span>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #E8488A; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Last 7 days</h2>
+<p style="margin: 0 0 14px; font-size: 13px; color: #5B5775">Cards reviewed per day.</p>
+<div style="display: flex; gap: 6px">
+<sc-for list="{{week}}" as="wk" hint-placeholder-count="7">
+<div style="flex: 1; text-align: center">
+<div style="height: 36px; border-radius: 6px; background: {{wk.bg}}; color: {{wk.fg}}; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{wk.n}}</div>
+<div style="font-size: 11px; color: #5B5775; margin-top: 4px">{{wk.d}}</div>
+</div>
+</sc-for>
+</div>
+</section>
+</div>
+
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #0EA5B7; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Practise a skill</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px">
+<sc-for list="{{skillTiles}}" as="t" hint-placeholder-count="4">
+<button class="btn" onClick="{{t.go}}" style="flex-direction: column; align-items: flex-start; min-height: 96px; padding: 16px; text-align: left; border-radius: 10px; background: {{t.tint}}; border-color: {{t.color}}">
+<span style="width: 32px; height: 6px; border-radius: 3px; background: {{t.color}}"></span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600">{{t.label}}</span>
+<span style="font-size: 13px; color: #5B5775; font-weight: 400">{{t.sub}}</span>
+</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<!-- ============ REVIEW (spaced repetition) ============ -->
+<sc-if value="{{isReview}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between">
+<div style="display: flex; flex-wrap: wrap; gap: 6px" role="group" aria-label="Review direction">
+<sc-for list="{{modeOpts}}" as="md" hint-placeholder-count="2">
+<button class="btn" onClick="{{md.pick}}" style="background: {{md.bg}}; color: {{md.fg}}; border-color: {{md.bd}}">{{md.label}}</button>
+</sc-for>
+</div>
+<div style="font-size: 14px; color: #5B5775">{{sessionProgress}}</div>
+</div>
+
+<sc-if value="{{noSession}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 40px 24px; text-align: center">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 600">Nothing left to review today</div>
+<p style="margin: 8px 0 20px; color: #5B5775">Add new phrases from your Writing, or practise making sentences.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center">
+<button class="btn btn-p" onClick="{{startSession}}">Check again</button>
+<button class="btn" onClick="{{goAdd}}">Add phrases</button>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{inSession}}" hint-placeholder-val="{{ false }}">
+<div style="height: 6px; border-radius: 3px; background: #ECE8FA; overflow: hidden"><div style="height: 6px; background: #5B3FD9; width: {{sessionPct}}%"></div></div>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 6px solid {{card.bar}}; border-radius: 16px; padding: 32px clamp(20px, 4vw, 48px); min-height: 360px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: {{card.kindBg}}; color: {{card.kindFg}}">{{card.kindLabel}}</span>
+<span style="font-size: 12px; padding: 4px 10px; border-radius: 12px; background: #F5F3FF; color: #1E1B3A">{{card.topic}}</span>
+<span style="font-size: 12px; padding: 4px 10px; border-radius: 12px; background: #F5F3FF; color: #1E1B3A">{{card.newLabel}}</span>
+</div>
+<div style="font-size: 13px; color: #5B5775">{{card.prompt}}</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 3.4vw, 38px); font-weight: 700; line-height: 1.2">{{card.front}}</div>
+<sc-if value="{{card.frontSub}}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 17px; line-height: 1.6; color: #34304F; font-style: italic">{{card.frontSub}}</div>
+</sc-if>
+<sc-if value="{{showHint}}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 15px; color: #8A4209">Hint: {{card.hint}}</div>
+</sc-if>
+<sc-if value="{{revealed}}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px dashed #D3CCEE; padding-top: 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: #5B3FD9">{{card.back}}</div>
+<div style="font-size: 16px; line-height: 1.6">{{card.example}}</div>
+<sc-if value="{{card.related}}" hint-placeholder-val="{{ false }}"><div style="font-size: 14px; color: #5B5775">Related: {{card.related}}</div></sc-if>
+<div style="font-size: 13px; color: #5B5775">Source: {{card.source}}</div>
+</div>
+</sc-if>
+<sc-if value="{{canVi}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button class="btn" onClick="{{toggleReviewVi}}" aria-expanded="{{reviewViStr}}" style="align-self: flex-start; background: #FFF8EF; border-color: #E8B98E; color: #8A4209">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h8"></path><path d="M8 3v2"></path><path d="M10 5c-.5 3-2.5 6-6 8"></path><path d="M6 9c1 2 3 3.5 5 4"></path><path d="M13 21l4-9 4 9"></path><path d="M14.5 18h5"></path></svg>
+{{reviewViLabel}}</button>
+<sc-if value="{{reviewVi}}" hint-placeholder-val="{{ false }}">
+<div lang="vi" style="padding: 12px 16px; border-radius: 10px; background: #FFF8EF; border: 1px solid #F1D3B3; font-size: 15px; line-height: 1.65; color: #3D1E04">
+<sc-if value="{{card.vi}}" hint-placeholder-val="{{ true }}"><div><strong>Nghĩa:</strong> {{card.vi}}</div></sc-if>
+<sc-if value="{{card.viNote}}" hint-placeholder-val="{{ true }}"><div style="margin-top: 4px"><strong>Giải thích:</strong> {{card.viNote}}</div></sc-if>
+<sc-if value="{{card.viPreview}}" hint-placeholder-val="{{ false }}"><div lang="en" style="font-size: 14px; color: #5B5775">{{card.viPreview}}</div></sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<div style="margin-top: auto; padding-top: 8px">
+<sc-if value="{{notRevealed}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button class="btn" onClick="{{toggleHint}}">Hint</button>
+<button class="btn btn-p" onClick="{{reveal}}" style="flex: 1; min-height: 48px">Show answer</button>
+</div>
+</sc-if>
+<sc-if value="{{revealed}}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{grades}}" as="g" hint-placeholder-count="4">
+<button class="btn" onClick="{{g.rate}}" style="flex-direction: column; gap: 2px; min-height: 56px; background: {{g.bg}}; color: {{g.fg}}; border-color: {{g.bd}}">
+<span style="font-weight: 600">{{g.label}}</span>
+<span style="font-size: 12px; font-weight: 400">{{g.next}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{sessionDone}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 40px 24px; text-align: center">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700">Review done for today</div>
+<p style="margin: 8px 0 20px; color: #5B5775">{{doneText}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center">
+<button class="btn btn-p" onClick="{{goSentence}}">Next: practise sentences</button>
+<button class="btn" onClick="{{goDash}}">Back to dashboard</button>
+</div>
+</section>
+</sc-if>
+</sc-if>
+
+<!-- ============ SENTENCE PRACTICE ============ -->
+<sc-if value="{{isSentence}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{noSentItem}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 32px; text-align: center; color: #5B5775">Your phrase bank is empty. Add some phrases first.</section>
+</sc-if>
+<sc-if value="{{hasSentItem}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<section style="flex: 999 1 460px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 14px; padding: 28px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center">
+<div style="font-size: 13px; color: #5B5775">Written today: <strong style="color: #1E1B3A">{{sentToday}} / {{sentGoal}}</strong> sentences</div>
+<button class="btn" onClick="{{nextSent}}" style="min-height: 36px; font-size: 13px">Another phrase</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px">
+<span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: {{si.kindBg}}; color: {{si.kindFg}}">{{si.kindLabel}}</span>
+<span style="font-size: 12px; padding: 4px 10px; border-radius: 12px; background: #F5F3FF">{{si.topic}}</span>
+</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; margin-top: 12px">{{si.phrase}}</div>
+<div style="font-size: 16px; color: #34304F; margin-top: 4px">{{si.meaning}}</div>
+<div style="font-size: 15px; color: #5B5775; font-style: italic; margin-top: 10px">Example: {{si.example}}</div>
+<button class="btn" onClick="{{toggleSentVi}}" aria-expanded="{{sentViStr}}" style="margin-top: 12px; background: #FFF8EF; border-color: #E8B98E; color: #8A4209">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h8"></path><path d="M8 3v2"></path><path d="M10 5c-.5 3-2.5 6-6 8"></path><path d="M6 9c1 2 3 3.5 5 4"></path><path d="M13 21l4-9 4 9"></path><path d="M14.5 18h5"></path></svg>
+{{sentViLabel}}</button>
+<sc-if value="{{sentVi}}" hint-placeholder-val="{{ false }}">
+<div lang="vi" style="margin-top: 10px; padding: 12px 16px; border-radius: 10px; background: #FFF8EF; border: 1px solid #F1D3B3; font-size: 15px; line-height: 1.65; color: #3D1E04">
+<sc-if value="{{si.vi}}" hint-placeholder-val="{{ true }}"><div><strong>Nghĩa:</strong> {{si.vi}}</div></sc-if>
+<sc-if value="{{si.viNote}}" hint-placeholder-val="{{ true }}"><div style="margin-top: 4px"><strong>Giải thích:</strong> {{si.viNote}}</div></sc-if>
+<sc-if value="{{si.viPreview}}" hint-placeholder-val="{{ false }}"><div lang="en" style="font-size: 14px; color: #5B5775">{{si.viPreview}}</div></sc-if>
+</div>
+</sc-if>
+<div style="margin-top: 20px; padding: 14px 16px; border-radius: 10px; background: #FFEBDA; color: #3D1E04; font-size: 15px">{{si.task}}</div>
+<label class="sr" for="sent-input">Your sentence</label>
+<textarea id="sent-input" class="inp" rows="4" placeholder="Write your sentence…" value="{{sText}}" onChange="{{setSText}}" style="margin-top: 14px; font-size: 16px"></textarea>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px">
+<button class="btn" onClick="{{checkSent}}">Check</button>
+<button class="btn btn-p" onClick="{{saveSent}}">Save sentence</button>
+</div>
+<sc-if value="{{sFeedback}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; padding: 12px 14px; border-radius: 8px; background: #F5F3FF; font-size: 14px; line-height: 1.7; white-space: pre-line">{{sFeedback}}</div>
+</sc-if>
+</section>
+<aside style="flex: 1 1 280px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 14px; padding: 20px">
+<h2 style="margin: 0 0 10px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Your sentences with this phrase</h2>
+<sc-if value="{{noMySent}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 14px; color: #5B5775">None yet. Write at least 2 sentences on 2 different topics so it sticks.</p></sc-if>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{mySent}}" as="ms" hint-placeholder-count="0">
+<div style="padding: 10px 12px; border-radius: 8px; background: #F5F3FF; font-size: 14px; line-height: 1.55">{{ms.t}}<div style="font-size: 12px; color: #5B5775; margin-top: 4px">{{ms.d}}</div></div>
+</sc-for>
+</div>
+</aside>
+</div>
+</sc-if>
+</sc-if>
+
+<!-- ============ FLASHCARDS & TESTS ============ -->
+<sc-if value="{{isPractice}}" hint-placeholder-val="{{ false }}">
+
+<!-- setup -->
+<sc-if value="{{vtSetup}}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+<section style="background: #FDE8F1; border: 2px solid #E8488A; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<div style="width: 44px; height: 44px; border-radius: 10px; background: #E8488A; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="14" height="14" rx="2"></rect><path d="M7 2h12a2 2 0 0 1 2 2v12"></path></svg>
+</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #1E1B3A">Flashcards</h2>
+<p style="margin: 0; font-size: 15px; color: #5B5775; line-height: 1.55">Shuffled cards you flip to reveal. Sort them into “I know it” and “Still learning”, then go again with the hard ones.</p>
+<button class="btn" onClick="{{startFlash}}" style="align-self: flex-start; background: #E8488A; border-color: #E8488A; color: #FFFFFF; min-height: 46px; padding: 0 20px; font-weight: 600">Start flashcards</button>
+</section>
+<section style="background: #EEEAFE; border: 2px solid #5B3FD9; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<div style="width: 44px; height: 44px; border-radius: 10px; background: #5B3FD9; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path></svg>
+</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #1E1B3A">Quick test</h2>
+<p style="margin: 0; font-size: 15px; color: #5B5775; line-height: 1.55">A short countdown test. Phrases are picked at random and every question gets a random type.</p>
+<button class="btn btn-p" onClick="{{startQuiz}}" style="align-self: flex-start; min-height: 46px; padding: 0 20px; font-weight: 600">Start test · {{qzSetupLabel}}</button>
+</section>
+</div>
+
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #FF9F43; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Settings</h2>
+<span style="font-size: 14px; font-weight: 600; color: {{poolColor}}">{{poolLabel}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+<label style="font-size: 13px; font-weight: 600">Phrases from
+<select class="inp" value="{{vtSource}}" onChange="{{setVtSource}}" style="margin-top: 6px; font-weight: 400">
+<option value="all">Whole phrase bank</option><option value="learning">Still learning (not known)</option><option value="new">New only</option><option value="academic">Academic only</option><option value="everyday">Everyday only</option>
+</select></label>
+<label style="font-size: 13px; font-weight: 600">Topic
+<select class="inp" value="{{vtTopic}}" onChange="{{setVtTopic}}" style="margin-top: 6px; font-weight: 400">
+<option value="All">All topics</option>
+<sc-for list="{{topicOpts}}" as="to" hint-placeholder-count="10"><option value="{{to.v}}">{{to.l}}</option></sc-for>
+</select></label>
+</div>
+<div>
+<div style="font-size: 13px; font-weight: 600; margin-bottom: 6px">Questions</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px" role="group" aria-label="Number of questions">
+<sc-for list="{{countOpts}}" as="co" hint-placeholder-count="4">
+<button class="btn" onClick="{{co.pick}}" aria-pressed="{{co.pressed}}" style="min-width: 56px; background: {{co.bg}}; color: {{co.fg}}; border-color: {{co.bd}}">{{co.label}}</button>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-size: 13px; font-weight: 600; margin-bottom: 6px">Countdown speed</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px" role="group" aria-label="Countdown speed">
+<sc-for list="{{speedOpts}}" as="so" hint-placeholder-count="3">
+<button class="btn" onClick="{{so.pick}}" aria-pressed="{{so.pressed}}" style="background: {{so.bg}}; color: {{so.fg}}; border-color: {{so.bd}}">{{so.label}}</button>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-size: 13px; font-weight: 600; margin-bottom: 6px">Question types (mixed at random)</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{typeOpts}}" as="ty" hint-placeholder-count="7">
+<button class="btn" onClick="{{ty.toggle}}" aria-pressed="{{ty.pressed}}" style="background: {{ty.bg}}; color: {{ty.fg}}; border-color: {{ty.bd}}">{{ty.mark}} {{ty.label}}</button>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #16A34A; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Test history</h2>
+<sc-if value="{{noQzHistory}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 14px; color: #5B5775">No tests yet. Your scores will appear here.</p></sc-if>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{qzHistory}}" as="h" hint-placeholder-count="0">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; background: #F5F3FF">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; min-width: 64px; color: {{h.color}}">{{h.pct}}%</span>
+<span style="flex: 1 1 160px; font-size: 14px">{{h.score}} correct · {{h.speed}}</span>
+<span style="font-size: 13px; color: #5B5775">{{h.when}}</span>
+<div style="flex: 0 0 120px; height: 8px; border-radius: 4px; background: #ECE8FA; overflow: hidden"><div style="height: 8px; background: {{h.color}}; width: {{h.pct}}%"></div></div>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<!-- flashcards -->
+<sc-if value="{{vtFlash}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between">
+<button class="btn" onClick="{{vtBack}}">← Back to setup</button>
+<div style="display: flex; flex-wrap: wrap; gap: 6px" role="group" aria-label="Card front">
+<sc-for list="{{fcFrontOpts}}" as="ff" hint-placeholder-count="2">
+<button class="btn" onClick="{{ff.pick}}" style="background: {{ff.bg}}; color: {{ff.fg}}; border-color: {{ff.bd}}">{{ff.label}}</button>
+</sc-for>
+<button class="btn" onClick="{{startFlash}}">Shuffle</button>
+</div>
+</div>
+<sc-if value="{{fcActive}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; justify-content: space-between; font-size: 14px; color: #5B5775"><span>Card {{fcPos}}</span><span><strong style="color: #16A34A">{{fcKnownN}} know</strong> · <strong style="color: #C2410C">{{fcLearnN}} still learning</strong></span></div>
+<div style="height: 8px; border-radius: 4px; background: #ECE8FA; overflow: hidden"><div style="height: 8px; background: #E8488A; width: {{fcPct}}%"></div></div>
+<button class="flip" onClick="{{fcFlipCard}}" aria-label="Flip card">
+<div class="flip-inner" style="transform: rotateY({{fcRot}}deg)">
+<div class="face" style="background: #FFFFFF; border: 2px solid #E8488A; box-shadow: 0 10px 30px rgba(43, 27, 107, 0.10)">
+<span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: {{fc.kindBg}}; color: {{fc.kindFg}}">{{fc.kindLabel}} · {{fc.topic}}</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 3.6vw, 40px); font-weight: 700; line-height: 1.2; color: #1E1B3A">{{fc.front}}</span>
+<span style="font-size: 14px; color: #5B5775">Tap to flip</span>
+</div>
+<div class="face face-back" style="background: #E8488A; color: #FFFFFF">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.25">{{fc.back}}</span>
+<span style="font-size: 16px; line-height: 1.6; font-style: italic; max-width: 560px">{{fc.example}}</span>
+<sc-if value="{{fc.vi}}" hint-placeholder-val="{{ false }}"><span lang="vi" style="font-size: 14px; padding: 4px 12px; border-radius: 12px; background: #FFFFFF; color: #C02C6C">{{fc.vi}}</span></sc-if>
+</div>
+</div>
+</button>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<button class="btn" onClick="{{fcLearning}}" style="min-height: 52px; background: #FEECE6; border-color: #F0623A; color: #9A3412; font-weight: 600">Still learning</button>
+<button class="btn" onClick="{{fcKnow}}" style="min-height: 52px; background: #E7F6EC; border-color: #16A34A; color: #166534; font-weight: 600">I know it</button>
+</div>
+<div style="display: flex; justify-content: space-between">
+<button class="btn" onClick="{{fcPrev}}">← Previous</button>
+<button class="btn" onClick="{{fcNext}}">Skip →</button>
+</div>
+</sc-if>
+<sc-if value="{{fcDone}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 6px solid #E8488A; border-radius: 14px; padding: 36px 24px; text-align: center">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700">Deck finished</div>
+<p style="margin: 8px 0 20px; color: #5B5775">{{fcDoneText}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center">
+<sc-if value="{{fcHasLearning}}" hint-placeholder-val="{{ true }}"><button class="btn" onClick="{{fcAgainLearning}}" style="background: #E8488A; border-color: #E8488A; color: #FFFFFF">Study “still learning” again</button></sc-if>
+<button class="btn" onClick="{{startFlash}}">Shuffle all again</button>
+<button class="btn btn-p" onClick="{{startQuiz}}">Take a quick test</button>
+</div>
+</section>
+</sc-if>
+</sc-if>
+
+<!-- quiz -->
+<sc-if value="{{vtQuiz}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; background: #2A1B6B; color: #FFFFFF; border-radius: 12px; padding: 14px 20px">
+<div style="font-size: 13px; color: #C9C0F2">Question {{qzPos}}</div>
+<div style="flex: 1 1 160px; height: 10px; border-radius: 5px; background: #4B38A3; overflow: hidden"><div style="height: 10px; background: {{qzBarColor}}; width: {{qzTimePct}}%; transition: width 1s linear"></div></div>
+<div aria-live="off" style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; color: {{qzClockColor}}">{{qzClock}}</div>
+<button class="btn" onClick="{{finishQuiz}}" style="background: #4B38A3; color: #FFFFFF; border-color: #6450C2">Finish</button>
+</div>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 6px solid {{q.color}}; border-radius: 16px; padding: 28px clamp(20px, 4vw, 44px); display: flex; flex-direction: column; gap: 14px">
+<span style="align-self: flex-start; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: {{q.tint}}; color: {{q.dark}}">{{q.typeLabel}}</span>
+<div style="font-size: 14px; color: #5B5775">{{q.prompt}}</div>
+<div lang="{{q.lang}}" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.3">{{q.main}}</div>
+<sc-if value="{{q.sub}}" hint-placeholder-val="{{ false }}"><div style="font-size: 15px; color: #5B5775; font-style: italic">{{q.sub}}</div></sc-if>
+
+<sc-if value="{{q.isChoice}}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px">
+<sc-for list="{{q.options}}" as="op" hint-placeholder-count="4">
+<button class="btn" onClick="{{op.pick}}" style="justify-content: flex-start; text-align: left; min-height: 56px; padding: 10px 16px; font-size: 15px; background: {{op.bg}}; color: {{op.fg}}; border-color: {{op.bd}}; border-width: 2px">
+<span style="min-width: 26px; height: 26px; border-radius: 13px; background: {{op.keyBg}}; color: {{op.keyFg}}; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">{{op.key}}</span>
+<span>{{op.label}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{q.isType}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<label class="sr" for="qz-input">Your answer</label>
+<input id="qz-input" class="inp" value="{{qzText}}" onChange="{{setQzText}}" onKeyDown="{{qzKey}}" placeholder="Type the phrase…" style="flex: 1 1 260px; font-size: 17px; min-height: 48px">
+<button class="btn btn-p" onClick="{{qzCheckText}}" style="min-height: 48px">Check</button>
+</div>
+</sc-if>
+
+<sc-if value="{{q.isOrder}}" hint-placeholder-val="{{ false }}">
+<div style="min-height: 56px; padding: 10px; border-radius: 10px; border: 2px dashed #D3CCEE; display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+<sc-if value="{{q.noneBuilt}}" hint-placeholder-val="{{ true }}"><span style="font-size: 14px; color: #5B5775">Tap the words below in the right order</span></sc-if>
+<sc-for list="{{q.built}}" as="bw" hint-placeholder-count="0"><span style="padding: 8px 14px; border-radius: 8px; background: #5B3FD9; color: #FFFFFF; font-weight: 600">{{bw.t}}</span></sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{q.chips}}" as="ch" hint-placeholder-count="4">
+<button class="btn" onClick="{{ch.pick}}" style="background: #FFF6DB; border-color: #E0B000; color: #5C4300; font-weight: 600">{{ch.t}}</button>
+</sc-for>
+<button class="btn" onClick="{{qzUndo}}">Undo</button>
+</div>
+</sc-if>
+
+<sc-if value="{{q.answered}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="padding: 14px 16px; border-radius: 10px; background: {{q.fbBg}}; color: {{q.fbFg}}; font-size: 15px; line-height: 1.6">
+<strong>{{q.fbTitle}}</strong> {{q.fbText}}
+<div style="font-size: 14px; margin-top: 4px; opacity: 0.9">{{q.fbExample}}</div>
+</div>
+<button class="btn btn-p" onClick="{{qzNext}}" style="align-self: flex-end; min-height: 48px; padding: 0 24px">{{qzNextLabel}}</button>
+</sc-if>
+</section>
+</sc-if>
+
+<!-- results -->
+<sc-if value="{{vtResult}}" hint-placeholder-val="{{ false }}">
+<section style="background: #5B3FD9; color: #FFFFFF; border-radius: 14px; padding: 28px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<div style="width: 120px; height: 120px; border-radius: 60px; background: #FFFFFF; color: #3B2799; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: none">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; line-height: 1">{{rPct}}%</span>
+<span style="font-size: 13px">{{rScore}}</span>
+</div>
+<div style="flex: 1 1 260px">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700">{{rTitle}}</div>
+<div style="color: #DCD5F8; margin-top: 6px">{{rSub}}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px">
+<sc-if value="{{rHasWrong}}" hint-placeholder-val="{{ true }}">
+<button class="btn" onClick="{{retryWrong}}" style="background: #FFD166; border-color: #FFD166; color: #1E1B3A; font-weight: 600">Retry mistakes</button>
+<button class="btn" onClick="{{wrongToReview}}" style="background: #4B38A3; border-color: #6450C2; color: #FFFFFF">Add mistakes to today's review</button>
+</sc-if>
+<button class="btn" onClick="{{startQuiz}}" style="background: #4B38A3; border-color: #6450C2; color: #FFFFFF">New test</button>
+<button class="btn" onClick="{{vtBack}}" style="background: #4B38A3; border-color: #6450C2; color: #FFFFFF">Settings</button>
+</div>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #FF9F43; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">By question type</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px">
+<sc-for list="{{rByType}}" as="bt" hint-placeholder-count="4">
+<div style="padding: 12px 14px; border-radius: 10px; background: {{bt.tint}}">
+<div style="font-size: 13px; font-weight: 600; color: {{bt.dark}}">{{bt.label}}</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; margin-top: 2px">{{bt.score}}</div>
+</div>
+</sc-for>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #E8488A; border-radius: 12px">
+<h2 style="margin: 0; padding: 18px 20px 10px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Answers</h2>
+<sc-for list="{{rRows}}" as="rr" hint-placeholder-count="5">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; padding: 12px 20px; border-top: 1px solid #E4E0F5">
+<span style="font-weight: 700; color: {{rr.color}}; min-width: 22px">{{rr.mark}}</span>
+<span style="flex: 1 1 220px; min-width: 0"><strong>{{rr.phrase}}</strong><span style="font-size: 12px; color: #5B5775"> · {{rr.typeLabel}}</span></span>
+<span style="flex: 1 1 220px; font-size: 14px; color: #5B5775">You: <span style="color: {{rr.color}}; font-weight: 600">{{rr.given}}</span><sc-if value="{{rr.wrong}}" hint-placeholder-val="{{ false }}"> · Answer: <strong style="color: #1E1B3A">{{rr.answer}}</strong></sc-if></span>
+</div>
+</sc-for>
+</section>
+</sc-if>
+</sc-if>
+
+<!-- ============ PHRASE BANK ============ -->
+<sc-if value="{{isBank}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-top: 5px solid #E8488A; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Topics</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px">
+<sc-for list="{{topicCards}}" as="tc" hint-placeholder-count="8">
+<button class="btn" onClick="{{tc.pick}}" style="flex-direction: column; align-items: flex-start; gap: 2px; min-height: 60px; text-align: left; background: {{tc.bg}}; color: {{tc.fg}}; border-color: {{tc.bd}}">
+<span style="font-weight: 600">{{tc.name}}</span>
+<span style="font-size: 12px; font-weight: 400; opacity: 0.85">{{tc.n}} phrases</span>
+</button>
+</sc-for>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: end; padding: 16px">
+<label style="flex: 2 1 220px; font-size: 13px; font-weight: 600">Search<input class="inp" type="search" value="{{bQuery}}" onChange="{{setBQuery}}" placeholder="Phrase, meaning, example…" style="margin-top: 6px; font-weight: 400"></label>
+<label style="flex: 1 1 140px; font-size: 13px; font-weight: 600">Source
+<select class="inp" value="{{bSource}}" onChange="{{setBSource}}" style="margin-top: 6px; font-weight: 400">
+<option value="All">All</option><option value="Writing">Writing</option><option value="Reading">Reading</option><option value="Listening">Listening</option><option value="Speaking">Speaking</option>
+</select></label>
+<label style="flex: 1 1 160px; font-size: 13px; font-weight: 600">Type
+<select class="inp" value="{{bKind}}" onChange="{{setBKind}}" style="margin-top: 6px; font-weight: 400">
+<option value="All">All</option><option value="academic">Academic</option><option value="everyday">Everyday / spoken</option>
+</select></label>
+<label style="flex: 1 1 140px; font-size: 13px; font-weight: 600">Status
+<select class="inp" value="{{bStatus}}" onChange="{{setBStatus}}" style="margin-top: 6px; font-weight: 400">
+<option value="All">All</option><option value="new">New</option><option value="learning">Learning</option><option value="known">Known</option>
+</select></label>
+</div>
+<div style="padding: 0 16px 12px; font-size: 13px; color: #5B5775">{{bankCountLabel}}</div>
+<sc-if value="{{bankEmpty}}" hint-placeholder-val="{{ false }}">
+<div style="padding: 32px 16px; text-align: center; color: #5B5775; border-top: 1px solid #E4E0F5">No phrases match these filters.</div>
+</sc-if>
+<sc-for list="{{bankRows}}" as="r" hint-placeholder-count="5">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 16px; padding: 16px; border-top: 1px solid #E4E0F5; align-items: flex-start">
+<div style="flex: 1 1 320px; min-width: 0">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700">{{r.phrase}}</span>
+<span style="font-size: 15px; color: #34304F">{{r.meaning}}</span>
+</div>
+<div style="font-size: 14px; color: #5B5775; font-style: italic; margin-top: 4px">{{r.example}}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; font-size: 12px">
+<span style="padding: 3px 9px; border-radius: 10px; background: #F5F3FF">{{r.topic}}</span>
+<span style="padding: 3px 9px; border-radius: 10px; background: #F5F3FF">{{r.source}}</span>
+<span style="padding: 3px 9px; border-radius: 10px; background: #F5F3FF">{{r.status}}</span>
+<span style="padding: 3px 9px; border-radius: 10px; background: #F5F3FF">{{r.sentences}}</span>
+</div>
+<sc-if value="{{r.viOpen}}" hint-placeholder-val="{{ false }}">
+<div lang="vi" style="margin-top: 10px; padding: 10px 14px; border-radius: 10px; background: #FFF8EF; border: 1px solid #F1D3B3; font-size: 14px; line-height: 1.65; color: #3D1E04">
+<sc-if value="{{r.vi}}" hint-placeholder-val="{{ true }}"><div><strong>Nghĩa:</strong> {{r.vi}}</div></sc-if>
+<sc-if value="{{r.viNote}}" hint-placeholder-val="{{ true }}"><div style="margin-top: 4px"><strong>Giải thích:</strong> {{r.viNote}}</div></sc-if>
+<sc-if value="{{r.viPreview}}" hint-placeholder-val="{{ false }}"><div lang="en" style="font-size: 13px; color: #5B5775">{{r.viPreview}}</div></sc-if>
+</div>
+</sc-if>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<button class="btn" onClick="{{r.toggleKind}}" aria-pressed="{{r.pressed}}" style="background: {{r.kindBg}}; color: {{r.kindFg}}; border-color: {{r.kindBd}}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"></path><path d="M5 4h11l-2 4 2 4H5"></path></svg>
+{{r.kindLabel}}</button>
+<button class="btn" onClick="{{r.toggleVi}}" aria-expanded="{{r.viOpenStr}}" style="background: #FFF8EF; border-color: #E8B98E; color: #8A4209">{{r.viLabel}}</button>
+<button class="btn" onClick="{{r.practise}}">Practise</button>
+<button class="btn" aria-label="Delete phrase" onClick="{{r.remove}}">Delete</button>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<!-- ============ ADD PHRASE ============ -->
+<sc-if value="{{isAdd}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<section style="flex: 1 1 400px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">1. Paste source text</h2>
+<p style="margin: 0 0 12px; font-size: 13px; color: #5B5775">Your essay, a Reading passage or a Listening transcript. Highlight a phrase to capture it; the sentence around it becomes the example.</p>
+<textarea class="inp" rows="5" value="{{srcText}}" onChange="{{setSrcText}}" placeholder="Paste text here…"></textarea>
+<sc-if value="{{srcText}}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 12px; color: #5B5775; margin: 12px 0 6px; text-transform: uppercase; letter-spacing: 0.08em">Highlight a phrase below</div>
+<div onMouseUp="{{grabAdd}}" style="padding: 14px 16px; border-radius: 10px; background: #FAF9FF; border: 1px solid #E4E0F5; font-size: 16px; line-height: 1.8; white-space: pre-wrap; cursor: text">{{srcText}}</div>
+</sc-if>
+</section>
+<section style="flex: 1 1 400px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">2. Save the phrase</h2>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<label style="font-size: 13px; font-weight: 600">Phrase (collocation)<input class="inp" value="{{fPhrase}}" onChange="{{setFPhrase}}" placeholder="e.g. have a detrimental effect on" style="margin-top: 6px; font-weight: 400; font-size: 16px"></label>
+<label style="font-size: 13px; font-weight: 600">Meaning<input class="inp" value="{{fMeaning}}" onChange="{{setFMeaning}}" placeholder="In your own words" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Example sentence<textarea class="inp" rows="2" value="{{fExample}}" onChange="{{setFExample}}" style="margin-top: 6px; font-weight: 400"></textarea></label>
+<div style="padding: 12px; border-radius: 10px; background: #FFF8EF; border: 1px solid #F1D3B3; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #3D1E04">Vietnamese (optional)</span>
+<button class="btn" onClick="{{autoVi}}" style="min-height: 36px; font-size: 13px; background: #FFFFFF; border-color: #E8B98E; color: #8A4209">Translate &amp; explain in Vietnamese</button>
+</div>
+<label style="font-size: 13px; font-weight: 600">Vietnamese meaning<input class="inp" lang="vi" value="{{fVi}}" onChange="{{setFVi}}" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Explanation in Vietnamese<textarea class="inp" lang="vi" rows="2" value="{{fViNote}}" onChange="{{setFViNote}}" placeholder="Cách dùng, sắc thái, cấu trúc đi kèm…" style="margin-top: 6px; font-weight: 400"></textarea></label>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<label style="font-size: 13px; font-weight: 600">Source
+<select class="inp" value="{{fSource}}" onChange="{{setFSource}}" style="margin-top: 6px; font-weight: 400">
+<option value="Writing">Writing</option><option value="Reading">Reading</option><option value="Listening">Listening</option><option value="Speaking">Speaking</option>
+</select></label>
+<label style="font-size: 13px; font-weight: 600">Topic
+<select class="inp" value="{{fTopic}}" onChange="{{setFTopic}}" style="margin-top: 6px; font-weight: 400">
+<sc-for list="{{topicOpts}}" as="to" hint-placeholder-count="10"><option value="{{to.v}}">{{to.l}}</option></sc-for>
+</select></label>
+</div>
+<label style="font-size: 13px; font-weight: 600">Source note (optional)<input class="inp" value="{{fNote}}" onChange="{{setFNote}}" placeholder="e.g. My Task 2 essay, Cambridge 18 Test 2" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Related phrases (optional)<input class="inp" value="{{fRelated}}" onChange="{{setFRelated}}" placeholder="e.g. adverse effect, negative impact" style="margin-top: 6px; font-weight: 400"></label>
+<div>
+<div style="font-size: 13px; font-weight: 600; margin-bottom: 6px">Type</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px" role="group" aria-label="Phrase type">
+<sc-for list="{{kindOpts}}" as="ko" hint-placeholder-count="2">
+<button class="btn" onClick="{{ko.pick}}" aria-pressed="{{ko.pressed}}" style="flex-direction: column; align-items: flex-start; gap: 2px; min-height: 60px; text-align: left; background: {{ko.bg}}; border-color: {{ko.bd}}">
+<span style="font-weight: 600">{{ko.label}}</span>
+<span style="font-size: 12px; font-weight: 400; color: #5B5775">{{ko.sub}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+<button class="btn btn-p" onClick="{{saveItem}}" style="min-height: 48px">Save to phrase bank</button>
+</div>
+</section>
+</div>
+</sc-if>
+
+<!-- ============ LIBRARY ============ -->
+<sc-if value="{{isLibrary}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<section style="flex: 1 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Upload files</h2>
+<p style="margin: 0 0 14px; font-size: 14px; color: #5B5775">PDF test books, audio tracks, Word docs, images or video.</p>
+<label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px">File it under</label>
+<select class="inp" aria-label="Skill for uploads" value="{{uploadSkill}}" onChange="{{setUploadSkill}}">
+<option value="Reading">Reading</option>
+<option value="Listening">Listening</option>
+<option value="Writing">Writing</option>
+<option value="Speaking">Speaking</option>
+<option value="Vocabulary">Vocabulary</option>
+<option value="Grammar">Grammar</option>
+<option value="General">General</option>
+</select>
+<div onDragOver="{{onDragOver}}" onDragLeave="{{onDragLeave}}" onDrop="{{onDrop}}" style="margin-top: 14px; border: 2px dashed {{dropBorder}}; background: {{dropBg}}; border-radius: 12px; padding: 28px 16px; text-align: center">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#5B3FD9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"></path><path d="M6 10l6-6 6 6"></path><path d="M4 20h16"></path></svg>
+<div style="margin-top: 8px; font-weight: 600">Drag files here</div>
+<div style="font-size: 13px; color: #5B5775; margin: 4px 0 12px">or</div>
+<label class="btn btn-p" style="cursor: pointer">Choose files<input class="sr" type="file" multiple="multiple" onChange="{{onFiles}}"></label>
+</div>
+</section>
+<section style="flex: 1 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Add a link or note</h2>
+<p style="margin: 0 0 14px; font-size: 14px; color: #5B5775">Save a YouTube lesson, a website article or your own notes.</p>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<label style="font-size: 13px; font-weight: 600">Title<input class="inp" value="{{linkTitle}}" onChange="{{setLinkTitle}}" placeholder="e.g. Task 2 opinion essay structure" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Link (optional)<input class="inp" type="url" value="{{linkUrl}}" onChange="{{setLinkUrl}}" placeholder="https://" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Notes (optional)<textarea class="inp" rows="3" value="{{linkNote}}" onChange="{{setLinkNote}}" style="margin-top: 6px; font-weight: 400"></textarea></label>
+<button class="btn btn-p" onClick="{{addLink}}" style="align-self: flex-start">Save to library</button>
+</div>
+</section>
+</div>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 16px 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{libFilters}}" as="f" hint-placeholder-count="8">
+<button class="btn" onClick="{{f.pick}}" style="min-height: 36px; padding: 6px 12px; border-radius: 18px; background: {{f.bg}}; color: {{f.fg}}; border-color: {{f.bd}}">{{f.label}}</button>
+</sc-for>
+</div>
+<input class="inp" type="search" aria-label="Search library" placeholder="Search materials" value="{{query}}" onChange="{{setQuery}}" style="max-width: 260px">
+</div>
+<sc-if value="{{libEmpty}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 40px 16px; text-align: center; color: #5B5775; border-top: 1px solid #E4E0F5">{{libEmptyText}}</div>
+</sc-if>
+<sc-for list="{{libItems}}" as="m" hint-placeholder-count="0">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 16px; border-top: 1px solid #E4E0F5">
+<span style="min-width: 52px; text-align: center; font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: #EEEAFE; color: #3B2799">{{m.kind}}</span>
+<div style="flex: 1 1 240px; min-width: 0">
+<div style="font-weight: 600; overflow-wrap: anywhere; text-decoration: {{m.deco}}">{{m.title}}</div>
+<div style="font-size: 13px; color: #5B5775">{{m.meta}}</div>
+<sc-if value="{{m.note}}" hint-placeholder-val="{{ false }}"><div style="font-size: 14px; margin-top: 4px; white-space: pre-line">{{m.note}}</div></sc-if>
+</div>
+<sc-if value="{{m.url}}" hint-placeholder-val="{{ false }}"><a class="btn" href="{{m.url}}" target="_blank" rel="noopener">Open</a></sc-if>
+<button class="btn" onClick="{{m.toggle}}">{{m.doneLabel}}</button>
+<button class="btn" aria-label="Remove material" onClick="{{m.remove}}">Remove</button>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<!-- ============ SKILL MATERIALS STRIP ============ -->
+<sc-if value="{{isSkill}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 16px 20px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Your {{skillName}} materials</h2>
+<label class="btn" style="cursor: pointer">Add to {{skillName}}<input class="sr" type="file" multiple="multiple" onChange="{{onSkillFiles}}"></label>
+</div>
+<sc-if value="{{skillMatsEmpty}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 10px 0 0; font-size: 14px; color: #5B5775">Nothing filed under {{skillName}} yet. Upload a file here or in My library.</p>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px">
+<sc-for list="{{skillMats}}" as="m" hint-placeholder-count="0">
+<div style="display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid #E4E0F5; border-radius: 8px; font-size: 14px; max-width: 100%">
+<span style="font-size: 11px; font-weight: 600; color: #3B2799">{{m.kind}}</span>
+<span style="overflow-wrap: anywhere">{{m.title}}</span>
+<sc-if value="{{m.url}}" hint-placeholder-val="{{ false }}"><a class="btn" href="{{m.url}}" target="_blank" rel="noopener" style="min-height: 32px; padding: 4px 10px; font-size: 13px">Open</a></sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<!-- ============ READING ============ -->
+<sc-if value="{{isReading}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{pendingSel}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; background: #FFEBDA; color: #3D1E04">
+<span style="flex: 1 1 240px">Selected: <strong>{{pendingSel}}</strong></span>
+<button class="btn btn-p" onClick="{{savePending}}">Save as phrase</button>
+<button class="btn" onClick="{{clearPending}}">Dismiss</button>
+</div>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<article onMouseUp="{{grabReading}}" style="flex: 1 1 400px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 24px">
+<div style="font-size: 12px; color: #5B5775; text-transform: uppercase; letter-spacing: 0.08em">Sample passage · highlight a phrase to save it</div>
+<h2 style="margin: 6px 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Bees on the rooftops</h2>
+<p style="margin: 0 0 12px; font-size: 16px; line-height: 1.75">Urban beekeeping has grown rapidly in many European and North American cities over the past two decades. Supporters argue that rooftop hives help pollinate city gardens and raise public awareness of declining insect populations.</p>
+<p style="margin: 0 0 12px; font-size: 16px; line-height: 1.75">However, some ecologists warn that adding large numbers of honeybees can increase competition for flowers, putting pressure on wild bee species that already struggle to find food in built-up areas. One city survey found that the number of hives had tripled in ten years, while the area of flowering plants had barely changed.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.75">For this reason, researchers suggest that planting more native flowers may matter more than simply adding hives.</p>
+</article>
+<section style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 24px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">True / False / Not Given</h2>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B5775">Do the statements agree with the passage?</p>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<sc-for list="{{rq}}" as="q" hint-placeholder-count="5">
+<div>
+<div style="font-size: 15px; line-height: 1.5"><strong>{{q.n}}.</strong> {{q.text}}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center">
+<sc-for list="{{q.opts}}" as="o" hint-placeholder-count="3">
+<button class="btn" onClick="{{o.pick}}" style="min-height: 36px; padding: 6px 12px; background: {{o.bg}}; color: {{o.fg}}; border-color: {{o.bd}}">{{o.label}}</button>
+</sc-for>
+<span style="font-size: 13px; font-weight: 600; color: {{q.resColor}}">{{q.result}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 20px">
+<button class="btn btn-p" onClick="{{checkReading}}">Check answers</button>
+<button class="btn" onClick="{{resetReading}}">Try again</button>
+<span style="font-weight: 600">{{readingScore}}</span>
+</div>
+</section>
+</div>
+</sc-if>
+
+<!-- ============ LISTENING ============ -->
+<sc-if value="{{isListening}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<section style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 24px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Audio player</h2>
+<p style="margin: 0 0 14px; font-size: 14px; color: #5B5775">Plays any audio file you uploaded.</p>
+<sc-if value="{{noAudio}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 20px; border-radius: 10px; background: #F5F3FF; font-size: 14px; color: #5B5775">No audio yet. Upload an MP3, WAV or M4A track with “Add to Listening” above.</div>
+</sc-if>
+<sc-if value="{{audioUrl}}" hint-placeholder-val="{{ false }}">
+<div style="font-weight: 600; margin-bottom: 10px; overflow-wrap: anywhere">{{audioTitle}}</div>
+<audio controls="controls" src="{{audioUrl}}" style="width: 100%"></audio>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 14px">
+<sc-for list="{{audioMats}}" as="a" hint-placeholder-count="0">
+<button class="btn" onClick="{{a.pick}}" style="justify-content: flex-start; background: {{a.bg}}; border-color: {{a.bd}}">{{a.title}}</button>
+</sc-for>
+</div>
+<p style="margin: 14px 0 0; font-size: 13px; color: #5B5775">Heard a useful phrase? Paste the transcript into <strong>Add phrase</strong> and highlight it.</p>
+</section>
+<section style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 24px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Answer checker</h2>
+<p style="margin: 0 0 14px; font-size: 14px; color: #5B5775">One answer per line. Works for any test in your library; 40 answers gives a band estimate.</p>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<label style="font-size: 13px; font-weight: 600">Your answers<textarea class="inp" rows="10" value="{{myAns}}" onChange="{{setMyAns}}" style="margin-top: 6px; font-weight: 400"></textarea></label>
+<label style="font-size: 13px; font-weight: 600">Answer key<textarea class="inp" rows="10" value="{{keyAns}}" onChange="{{setKeyAns}}" style="margin-top: 6px; font-weight: 400"></textarea></label>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px">
+<button class="btn btn-p" onClick="{{markListening}}">Mark</button>
+<span style="font-weight: 600">{{listenResult}}</span>
+</div>
+<sc-if value="{{wrongList}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; font-size: 14px; white-space: pre-line; background: #FFEBDA; color: #6B3508; padding: 12px; border-radius: 8px">{{wrongList}}</div>
+</sc-if>
+</section>
+</div>
+</sc-if>
+
+<!-- ============ TIMER (writing + speaking) ============ -->
+<sc-if value="{{showTimer}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; background: #1E1B3A; color: #FFFFFF; border-radius: 12px; padding: 14px 20px">
+<div style="font-size: 13px; color: #C9C0F2; text-transform: uppercase; letter-spacing: 0.08em">{{tLabel}}</div>
+<div aria-live="polite" style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; font-variant-numeric: tabular-nums; flex: 1">{{tText}}</div>
+<sc-for list="{{timerBtns}}" as="tb" hint-placeholder-count="2">
+<button class="btn" onClick="{{tb.act}}" style="background: #4B38A3; color: #FFFFFF; border-color: #6450C2">{{tb.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<!-- ============ WRITING ============ -->
+<sc-if value="{{isWriting}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 6px">
+<sc-for list="{{wTabs}}" as="w" hint-placeholder-count="2">
+<button class="btn" onClick="{{w.pick}}" style="background: {{w.bg}}; color: {{w.fg}}; border-color: {{w.bd}}">{{w.label}}</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<section style="flex: 999 1 460px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 24px">
+<label style="font-size: 13px; font-weight: 600; color: #5B5775">Prompt (edit or paste one from your materials)
+<textarea class="inp" rows="3" value="{{wPrompt}}" onChange="{{setWPrompt}}" style="margin-top: 6px; font-size: 15px; color: #1E1B3A; background: #F5F3FF"></textarea>
+</label>
+<label class="sr" for="essay">Your essay</label>
+<textarea id="essay" class="inp" rows="16" value="{{essay}}" onChange="{{setEssay}}" placeholder="Start writing…" style="margin-top: 14px; font-size: 16px"></textarea>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px">
+<div style="flex: 1 1 200px">
+<div style="font-size: 14px"><strong>{{wordCount}}</strong> words · aim for {{minWords}}+</div>
+<div style="height: 6px; border-radius: 3px; background: #ECE8FA; margin-top: 6px; overflow: hidden"><div style="height: 6px; background: {{wcColor}}; width: {{wcPct}}%"></div></div>
+</div>
+<button class="btn" onClick="{{collectFromEssay}}">Collect phrases from essay</button>
+<button class="btn btn-p" onClick="{{saveDraft}}">Save draft</button>
+</div>
+</section>
+<aside style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Self-check</h2>
+<p style="margin: 0 0 10px; font-size: 13px; color: #5B5775">The four marking criteria.</p>
+<sc-for list="{{criteria}}" as="c" hint-placeholder-count="4">
+<label style="display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; font-size: 14px; cursor: pointer">
+<input type="checkbox" checked="{{c.on}}" onChange="{{c.toggle}}" style="width: 18px; height: 18px; margin-top: 2px; accent-color: #5B3FD9">
+<span><strong>{{c.name}}</strong><br><span style="color: #5B5775">{{c.hint}}</span></span>
+</label>
+</sc-for>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 20px">
+<h2 style="margin: 0 0 10px; font-family: 'Space Grotesk', sans-serif; font-size: 18px">Saved drafts</h2>
+<sc-if value="{{noDrafts}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 14px; color: #5B5775">No drafts yet.</p></sc-if>
+<sc-for list="{{drafts}}" as="d" hint-placeholder-count="0">
+<button class="btn" onClick="{{d.load}}" style="width: 100%; justify-content: space-between; margin-bottom: 6px"><span>{{d.task}} · {{d.date}}</span><span style="color: #5B5775">{{d.words}} w</span></button>
+</sc-for>
+</section>
+</aside>
+</div>
+</sc-if>
+
+<!-- ============ SPEAKING ============ -->
+<sc-if value="{{isSpeaking}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{sTabs}}" as="s" hint-placeholder-count="3">
+<button class="btn" onClick="{{s.pick}}" style="background: {{s.bg}}; color: {{s.fg}}; border-color: {{s.bd}}">{{s.label}}</button>
+</sc-for>
+</div>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 28px">
+<div style="font-size: 13px; color: #5B5775; text-transform: uppercase; letter-spacing: 0.08em">{{sIntro}}</div>
+<sc-if value="{{isPart2}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; padding: 24px; border-radius: 12px; background: #FFEBDA; color: #3D1E04">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600">Describe a book that you enjoyed reading.</div>
+<div style="margin-top: 12px; font-size: 15px">You should say:</div>
+<ul style="margin: 6px 0 0; padding-left: 20px; font-size: 15px; line-height: 1.8">
+<li>what the book was</li>
+<li>when you read it</li>
+<li>what it was about</li>
+</ul>
+<div style="margin-top: 6px; font-size: 15px">and explain why you enjoyed it.</div>
+</div>
+<label style="display: block; margin-top: 16px; font-size: 13px; font-weight: 600">Notes (1 minute to prepare)<textarea class="inp" rows="4" value="{{sNotes}}" onChange="{{setSNotes}}" style="margin-top: 6px; font-weight: 400"></textarea></label>
+</sc-if>
+<sc-if value="{{notPart2}}" hint-placeholder-val="{{ true }}">
+<ol style="margin: 12px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 12px; font-size: 18px; line-height: 1.5">
+<sc-for list="{{sQuestions}}" as="sq" hint-placeholder-count="3"><li>{{sq.text}}</li></sc-for>
+</ol>
+</sc-if>
+<div style="margin-top: 18px; padding: 14px 16px; border-radius: 10px; background: #F5F3FF">
+<div style="font-size: 13px; font-weight: 600; margin-bottom: 8px">Everyday phrases to try in your answer</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{spokenPhrases}}" as="sp" hint-placeholder-count="4">
+<span style="font-size: 14px; padding: 4px 10px; border-radius: 12px; background: #FFEBDA; color: #8A4209">{{sp.t}}</span>
+</sc-for>
+</div>
+</div>
+<p style="margin: 14px 0 0; font-size: 14px; color: #5B5775">Tip: record yourself on your phone, then listen back for fluency, range of vocabulary and pronunciation.</p>
+</section>
+</sc-if>
+
+<!-- ============ MOCK TESTS & SCORES ============ -->
+<sc-if value="{{isTests}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 24px">
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Log a mock test</h2>
+<p style="margin: 0 0 14px; font-size: 14px; color: #5B5775">Bands 0–9 in steps of 0.5. Overall is the average, rounded the IELTS way.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; align-items: end">
+<label style="font-size: 13px; font-weight: 600">Date<input class="inp" type="date" value="{{tDate}}" onChange="{{setTDate}}" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Listening<input class="inp" type="number" min="0" max="9" step="0.5" value="{{tL}}" onChange="{{setTL}}" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Reading<input class="inp" type="number" min="0" max="9" step="0.5" value="{{tR}}" onChange="{{setTR}}" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Writing<input class="inp" type="number" min="0" max="9" step="0.5" value="{{tW}}" onChange="{{setTW}}" style="margin-top: 6px; font-weight: 400"></label>
+<label style="font-size: 13px; font-weight: 600">Speaking<input class="inp" type="number" min="0" max="9" step="0.5" value="{{tS}}" onChange="{{setTS}}" style="margin-top: 6px; font-weight: 400"></label>
+<button class="btn btn-p" onClick="{{addScore}}">Save score</button>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 24px">
+<h2 style="margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Score history</h2>
+<sc-if value="{{noScores}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 14px; color: #5B5775">No scores yet. Your first mock test sets the baseline.</p></sc-if>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px">
+<thead><tr style="text-align: left; color: #5B5775; font-size: 13px"><th style="padding: 8px">Date</th><th style="padding: 8px">L</th><th style="padding: 8px">R</th><th style="padding: 8px">W</th><th style="padding: 8px">S</th><th style="padding: 8px">Overall</th><th style="padding: 8px"><span class="sr">Actions</span></th></tr></thead>
+<tbody>
+<sc-for list="{{scoreRows}}" as="r" hint-placeholder-count="0">
+<tr style="border-top: 1px solid #E4E0F5"><td style="padding: 10px 8px">{{r.date}}</td><td style="padding: 10px 8px">{{r.l}}</td><td style="padding: 10px 8px">{{r.r}}</td><td style="padding: 10px 8px">{{r.w}}</td><td style="padding: 10px 8px">{{r.s}}</td><td style="padding: 10px 8px; font-weight: 700">{{r.o}}</td><td style="padding: 6px 8px; text-align: right"><button class="btn" onClick="{{r.remove}}" style="min-height: 32px; padding: 4px 10px; font-size: 13px">Delete</button></td></tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+</sc-if>
+
+<!-- ============ COMPUTER-BASED MOCK EXAM (coming soon) ============ -->
+<sc-if value="{{isExam}}" hint-placeholder-val="{{ false }}">
+<section style="background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 28px">
+<span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: #FFEBDA; color: #8A4209">Phase 2 · needs test sources</span>
+<h2 style="margin: 14px 0 6px; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Computer-based IELTS simulation</h2>
+<p style="margin: 0 0 20px; color: #5B5775; font-size: 15px; max-width: 640px">A full on-screen exam for all four skills, built once you have test material.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
+<sc-for list="{{examPlan}}" as="ex" hint-placeholder-count="4">
+<div style="border: 1px solid #E4E0F5; border-radius: 10px; padding: 16px">
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px">{{ex.skill}}</div>
+<div style="font-size: 13px; color: #5B5775; margin-top: 2px">{{ex.time}}</div>
+<div style="font-size: 14px; margin-top: 8px; line-height: 1.6">{{ex.detail}}</div>
+</div>
+</sc-for>
+</div>
+<div style="margin-top: 16px; padding: 14px 16px; border-radius: 10px; background: #EEEAFE; color: #3B2799; font-size: 14px">Linked to your phrase bank: highlight a new phrase during the test to save it, tagged with that test as the source.</div>
+</section>
+</sc-if>
+
+<!-- ============ AI TUTOR ============ -->
+<sc-if value="{{isTutor}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+<aside style="flex: 1 1 240px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<button class="btn btn-p" onClick="{{newChat}}">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+New chat</button>
+<input class="inp" type="search" aria-label="Search chat history" placeholder="Search history" value="{{chatQuery}}" onChange="{{setChatQuery}}">
+<div style="font-size: 12px; color: #5B5775; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px">Chat history</div>
+<sc-if value="{{noChatList}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 14px; color: #5B5775">{{noChatText}}</p>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{chatList}}" as="c" hint-placeholder-count="0">
+<div style="display: flex; gap: 4px; align-items: stretch">
+<button class="btn" onClick="{{c.open}}" style="flex: 1; min-width: 0; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; background: {{c.bg}}; border-color: {{c.bd}}">
+<span style="font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{c.title}}</span>
+<span style="font-size: 12px; color: #5B5775; font-weight: 400">{{c.meta}}</span>
+</button>
+<button class="btn" aria-label="Delete conversation" onClick="{{c.remove}}" style="min-width: 40px; padding: 4px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>
+</button>
+</div>
+</sc-for>
+</div>
+</aside>
+<section style="flex: 999 1 480px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 12px; display: flex; flex-direction: column; min-height: 640px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 20px; border-bottom: 1px solid #E4E0F5">
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: #1E1B3A; color: #FF9F43; display: flex; align-items: center; justify-content: center">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path></svg>
+</div>
+<div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px">{{chatTitle}}</div>
+<div style="font-size: 12px; color: #5B5775">Your IELTS study coach · preview replies</div>
+</div>
+</div>
+<label style="display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer">
+<input type="checkbox" checked="{{useCtx}}" onChange="{{toggleCtx}}" style="width: 18px; height: 18px; accent-color: #5B3FD9">
+Use my progress as context
+</label>
+</div>
+<sc-if value="{{useCtx}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 20px; background: #FAF9FF; border-bottom: 1px solid #E4E0F5; font-size: 13px">
+<span style="color: #5B5775; padding: 4px 0">The tutor can see:</span>
+<sc-for list="{{ctxChips}}" as="x" hint-placeholder-count="4">
+<span style="padding: 4px 10px; border-radius: 12px; background: #EEEAFE; color: #3B2799">{{x.t}}</span>
+</sc-for>
+</div>
+</sc-if>
+<div aria-live="polite" style="flex: 1; overflow-y: auto; max-height: 520px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<sc-if value="{{chatEmpty}}" hint-placeholder-val="{{ true }}">
+<div style="margin: auto 0; text-align: center; padding: 24px 8px">
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 600">How can I help you study today?</div>
+<p style="margin: 8px 0 20px; color: #5B5775; font-size: 15px">Ask about any question type, get a study plan, or get quizzed on your phrases.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; text-align: left">
+<sc-for list="{{starters}}" as="st" hint-placeholder-count="4">
+<button class="btn" onClick="{{st.ask}}" style="justify-content: flex-start; min-height: 56px; text-align: left">{{st.t}}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-for list="{{msgs}}" as="mg" hint-placeholder-count="0">
+<div style="align-self: {{mg.align}}; max-width: 85%; padding: 12px 16px; border-radius: 14px; background: {{mg.bg}}; color: {{mg.fg}}; font-size: 15px; line-height: 1.6; white-space: pre-line">{{mg.text}}</div>
+</sc-for>
+<sc-if value="{{typing}}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; padding: 10px 16px; border-radius: 14px; background: #F5F3FF; color: #5B5775; font-size: 14px">Tutor is thinking…</div>
+</sc-if>
+</div>
+<div style="padding: 14px 20px 18px; border-top: 1px solid #E4E0F5">
+<sc-if value="{{hasFollowups}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px">
+<sc-for list="{{starters}}" as="st" hint-placeholder-count="3">
+<button class="btn" onClick="{{st.ask}}" style="min-height: 32px; padding: 4px 12px; font-size: 13px; border-radius: 16px">{{st.t}}</button>
+</sc-for>
+</div>
+</sc-if>
+<div style="display: flex; gap: 8px; align-items: flex-end">
+<label class="sr" for="tutor-input">Message the AI tutor</label>
+<textarea id="tutor-input" class="inp" rows="2" placeholder="Ask anything about IELTS… (Enter to send)" value="{{chatInput}}" onChange="{{setChatInput}}" onKeyDown="{{chatKey}}"></textarea>
+<button class="btn btn-p" onClick="{{sendChat}}" style="min-height: 52px">Send</button>
+</div>
+</div>
+</section>
+</div>
+</sc-if>
+
+</div>
+</main>
+
+<!-- ============ FLOATING AI ASSISTANT ============ -->
+<sc-if value="{{showFab}}" hint-placeholder-val="{{ true }}">
+<button class="btn btn-p" onClick="{{toggleChat}}" aria-expanded="{{chatOpenStr}}" style="position: fixed; right: 24px; bottom: 24px; z-index: 20; min-height: 52px; padding: 0 20px; border-radius: 26px; box-shadow: 0 8px 24px rgba(43, 27, 107, 0.28)">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path></svg>
+{{fabLabel}}</button>
+</sc-if>
+<sc-if value="{{showMini}}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-label="AI tutor" style="position: fixed; right: 24px; bottom: 90px; z-index: 20; width: min(390px, calc(100vw - 32px)); max-height: 72vh; display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E4E0F5; border-radius: 14px; box-shadow: 0 16px 40px rgba(43, 27, 107, 0.22)">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid #E4E0F5">
+<div style="flex: 1; min-width: 0">
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600">AI tutor</div>
+<div style="font-size: 12px; color: #5B5775; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{chatTitle}}</div>
+</div>
+<button class="btn" onClick="{{newChat}}" style="min-height: 36px; padding: 4px 10px; font-size: 13px">New</button>
+<button class="btn" onClick="{{openTutor}}" style="min-height: 36px; padding: 4px 10px; font-size: 13px">History</button>
+<button class="btn" aria-label="Close AI tutor" onClick="{{toggleChat}}" style="min-height: 36px; min-width: 36px; padding: 4px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>
+</button>
+</div>
+<div aria-live="polite" style="flex: 1; overflow-y: auto; min-height: 220px; max-height: 380px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<sc-if value="{{chatEmpty}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0 0 4px; font-size: 14px; color: #5B5775">Ask about what you're working on. Try:</p>
+<sc-for list="{{starters}}" as="st" hint-placeholder-count="3">
+<button class="btn" onClick="{{st.ask}}" style="justify-content: flex-start; text-align: left; font-size: 14px">{{st.t}}</button>
+</sc-for>
+</sc-if>
+<sc-for list="{{msgs}}" as="mg" hint-placeholder-count="0">
+<div style="align-self: {{mg.align}}; max-width: 88%; padding: 10px 14px; border-radius: 12px; background: {{mg.bg}}; color: {{mg.fg}}; font-size: 14px; line-height: 1.55; white-space: pre-line">{{mg.text}}</div>
+</sc-for>
+<sc-if value="{{typing}}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; padding: 8px 14px; border-radius: 12px; background: #F5F3FF; color: #5B5775; font-size: 13px">Tutor is thinking…</div>
+</sc-if>
+</div>
+<div style="display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid #E4E0F5">
+<label class="sr" for="mini-input">Message the AI tutor</label>
+<input id="mini-input" class="inp" placeholder="Ask the tutor…" value="{{chatInput}}" onChange="{{setChatInput}}" onKeyDown="{{chatKey}}">
+<button class="btn btn-p" onClick="{{sendChat}}">Send</button>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.nextId = 100;
+    const T = this.today();
+    const mk = (id, phrase, meaning, example, source, note, topic, kind, related, reps, interval, dueIn) => ({
+      id: id, phrase: phrase, meaning: meaning, example: example, source: source, note: note, topic: topic, kind: kind, related: related,
+      reps: reps, interval: interval, ease: 2.5, due: this.addDays(T, dueIn), added: this.addDays(T, -7), firstLearned: reps ? this.addDays(T, -6) : null, sentences: []
+    });
+    // Sample Vietnamese translations + explanations (the live app generates these with AI)
+    const VI = {
+      1: { vi: 'có tác động có hại đến', viNote: 'Dùng trong văn viết học thuật, trang trọng hơn “bad for”. Theo sau là danh từ: have a detrimental effect on health / the environment.' },
+      2: { vi: 'đóng vai trò then chốt trong', viNote: '“Pivotal” = rất quan trọng, mang tính quyết định. Sau “in” dùng danh từ hoặc V-ing: play a pivotal role in shaping…' },
+      3: { vi: 'thu hẹp khoảng cách giữa', viNote: 'Nghĩa bóng: giảm sự chênh lệch giữa hai nhóm (giàu – nghèo, thành thị – nông thôn). Hay dùng ở Task 2 chủ đề giáo dục, xã hội.' },
+      4: { vi: 'sự tăng đều về', viNote: 'Dùng mô tả xu hướng trong Task 1. Có thể đổi thành a steady rise / decline in; dạng động từ: increase steadily.' },
+      5: { vi: 'nâng cao nhận thức về', viNote: 'Chủ ngữ thường là chính phủ, chiến dịch, truyền thông. Cũng nói được “raise awareness about”.' },
+      6: { vi: 'gây ra mối đe dọa cho', viNote: 'Văn phong trang trọng; dùng động từ “pose”, không dùng “make”. Ví dụ: pose a serious threat to wildlife.' },
+      7: { vi: 'được tiếp cận, có thể sử dụng', viNote: '“Access” là danh từ không đếm được, luôn đi với “to”: access to education / healthcare / the internet.' },
+      8: { vi: 'sự cân bằng giữa công việc và cuộc sống', viNote: 'Cụm danh từ dùng được cả khi nói và viết; thường đi với achieve / maintain a good work-life balance.' },
+      9: { vi: 'coi điều gì là hiển nhiên (nên không trân trọng)', viNote: 'Tân ngữ đặt ở giữa: take clean water for granted. Rất tự nhiên trong Speaking.' },
+      10: { vi: 'giữ liên lạc với', viNote: 'Văn nói, thân mật. Biến thể: stay in touch with; ngược nghĩa: lose touch with (mất liên lạc).' },
+      11: { vi: 'về lâu dài', viNote: 'Trạng ngữ, đứng đầu hoặc cuối câu. Cách nói trang trọng hơn: in the long term.' },
+      12: { vi: 'xoay xở đủ sống, kiếm đủ tiền trang trải', viNote: 'Thành ngữ, hợp với Speaking hơn Writing. Hay gặp: struggle to make ends meet.' }
+    };
+    this.state = {
+      screen: 'dash', flash: '', target: 6.5, examDate: this.addDays(T, 90),
+      materials: [], uploadSkill: 'General', libFilter: 'All', query: '', dragging: false,
+      linkTitle: '', linkUrl: '', linkNote: '',
+      plan: [
+        { id: 1, text: 'Vocabulary session (20 min)', done: false },
+        { id: 2, text: 'One Reading passage — save 3 phrases', done: false },
+        { id: 3, text: 'Listening Section 2', done: false },
+        { id: 4, text: 'Speaking Part 2 practice', done: false }
+      ],
+      newTask: '',
+      rAns: {}, rChecked: false, pendingSel: '', pendingSent: '',
+      audioId: null, myAns: '', keyAns: '', listenResult: '', wrongList: '',
+      wTask: 2, essay: '', wPrompts: {
+        1: 'The graph shows the number of visitors to three museums between 2010 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
+        2: 'Some people believe that university education should be free for all students. Others think students should pay for their own studies. Discuss both views and give your own opinion.'
+      },
+      crit: {}, drafts: [],
+      sPart: 1, sNotes: '',
+      tSecs: 0, tRun: false, tLabel: '',
+      scores: [], tDate: '', tL: '', tR: '', tW: '', tS: '',
+      chats: [], activeChat: null, chatInput: '', chatQuery: '', chatOpen: false, typing: false, useCtx: true,
+      // vocabulary
+      minutes: 20, goalPhrases: 500, history: {},
+      items: [
+        mk(1, 'have a detrimental effect on', 'to cause harm to', 'Air pollution has a detrimental effect on public health.', 'Writing', 'My Task 2 essay', 'environment', 'academic', 'adverse effect, negative impact', 2, 3, 0),
+        mk(2, 'play a pivotal role in', 'to be very important in', 'Teachers play a pivotal role in shaping young people’s values.', 'Reading', '', 'education', 'academic', 'play a key role in', 1, 1, 0),
+        mk(3, 'bridge the gap between', 'to reduce the difference between', 'Free online courses can bridge the gap between rich and poor students.', 'Writing', 'My Task 2 essay', 'education', 'academic', 'narrow the gap', 0, 0, 0),
+        mk(4, 'a steady increase in', 'a regular, continuous rise in', 'There was a steady increase in the number of visitors between 2010 and 2015.', 'Writing', 'Task 1 line graph', 'trends', 'academic', 'a gradual rise, a sharp decline', 0, 0, 0),
+        mk(5, 'raise awareness of', 'to make people know more about', 'Governments should run campaigns to raise awareness of recycling.', 'Writing', '', 'environment', 'academic', 'draw attention to', 1, 1, 0),
+        mk(6, 'pose a threat to', 'to be a danger to', 'Rising sea levels pose a threat to coastal cities.', 'Reading', '', 'environment', 'academic', 'put something at risk', 0, 0, 0),
+        mk(7, 'have access to', 'to be able to use or get', 'Many rural children do not have access to the internet.', 'Reading', '', 'technology', 'academic', 'gain access to', 2, 4, 1),
+        mk(8, 'work-life balance', 'a healthy split between work and personal life', 'Flexible hours help employees achieve a better work-life balance.', 'Listening', '', 'work', 'everyday', '', 0, 0, 0),
+        mk(9, 'take something for granted', 'to not value something because you always have it', 'We often take clean water for granted.', 'Listening', '', 'society', 'everyday', '', 1, 3, 0),
+        mk(10, 'keep in touch with', 'to stay in contact with', 'Social media helps me keep in touch with old friends.', 'Listening', '', 'daily', 'everyday', 'stay in touch', 0, 0, 0),
+        mk(11, 'in the long run', 'over a long period of time', 'In the long run, investing in education benefits the whole country.', 'Speaking', '', 'daily', 'everyday', 'in the long term', 1, 6, 2),
+        mk(12, 'make ends meet', 'to have just enough money to live', 'Many students work part-time to make ends meet.', 'Listening', '', 'work', 'everyday', '', 0, 0, 0)
+      ].map((it) => Object.assign(it, VI[it.id] || { vi: '', viNote: '' })),
+      viOpen: {}, reviewVi: false, sentVi: false, fVi: '', fViNote: '',
+      // flashcards & tests
+      vtView: 'setup', vtSource: 'all', vtTopic: 'All', vtCount: 10, vtSpeed: 'normal',
+      vtTypes: { mcPhrase: true, mcMeaning: true, fill: true, tf: true, gap: true, order: true, vi: true },
+      fcIds: [], fcIdx: 0, fcFlip: false, fcMarks: {}, fcFront: 'phrase',
+      qz: [], qzIdx: 0, qzLeft: 0, qzTotal: 0, qzAns: {}, qzOrder: [], qzText: '', qzHistory: [],
+      queue: [], qPos: 0, revealed: false, hint: false, mode: 'produce', sessionReviewed: 0, sessionStarted: false,
+      sId: null, sText: '', sFeedback: '',
+      bTopic: 'All', bSource: 'All', bKind: 'All', bStatus: 'All', bQuery: '',
+      srcText: '', fPhrase: '', fMeaning: '', fExample: '', fSource: 'Writing', fNote: '', fTopic: 'education', fKind: 'academic', fRelated: ''
+    };
+  }
+  componentWillUnmount() { clearInterval(this.iv); clearInterval(this.qiv); clearTimeout(this.rt); clearTimeout(this.ft); }
+
+  // ---- flashcards & quick tests ----
+  shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = b[i]; b[i] = b[j]; b[j] = t; } return b; }
+  norm(t) { return (t || '').toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9' -]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  vtPool() {
+    const s = this.state;
+    return s.items.filter((i) => {
+      if (s.vtTopic !== 'All' && i.topic !== s.vtTopic) return false;
+      if (s.vtSource === 'learning') return this.status(i) !== 'known';
+      if (s.vtSource === 'new') return !i.reps;
+      if (s.vtSource === 'academic') return i.kind === 'academic';
+      if (s.vtSource === 'everyday') return i.kind === 'everyday';
+      return true;
+    });
+  }
+  qTypes() {
+    return {
+      mcPhrase: ['Multiple choice', '#5B3FD9', '#EEEAFE', '#3B2799'],
+      mcMeaning: ['Choose the meaning', '#2563EB', '#E8F0FE', '#1E40AF'],
+      fill: ['Fill in the blank', '#F0623A', '#FEECE6', '#9A3412'],
+      tf: ['True / False', '#0EA5B7', '#E3F7FA', '#0B5F6B'],
+      gap: ['Missing word', '#E8488A', '#FDE8F1', '#9D174D'],
+      order: ['Word order', '#E0B000', '#FFF6DB', '#5C4300'],
+      vi: ['Vietnamese → English', '#16A34A', '#E7F6EC', '#166534']
+    };
+  }
+  gapCands(it, ok) {
+    const STOP = ['something', 'someone', 'somebody', 'that', 'this', 'with', 'from', 'into', 'have'];
+    return it.phrase.split(/\s+/).filter((w) => w.replace(/[^a-z-]/gi, '').length >= 4 && STOP.indexOf(w.toLowerCase()) < 0 && (!ok || ok(w)));
+  }
+  qApplicable(t, it, others) {
+    const words = it.phrase.split(/\s+/);
+    if (t === 'mcPhrase' || t === 'mcMeaning') return others.length >= 3;
+    if (t === 'tf') return others.length >= 1;
+    if (t === 'fill') return !!it.example && it.example.toLowerCase().indexOf(it.phrase.toLowerCase()) >= 0;
+    if (t === 'order') return words.length >= 3;
+    if (t === 'vi') return !!it.vi && others.length >= 3;
+    if (t === 'gap') {
+      const c = this.gapCands(it);
+      const pool = []; others.forEach((o) => this.gapCands(o).forEach((w) => { if (pool.indexOf(w.toLowerCase()) < 0) pool.push(w.toLowerCase()); }));
+      return c.length > 0 && pool.length >= 4;
+    }
+    return false;
+  }
+  makeQ(t, it, others) {
+    const q = { itemId: it.id, type: t, phrase: it.phrase, meaning: it.meaning, example: it.example, kind: 'choice', options: [], chips: [], answer: it.phrase, prompt: '', main: '', sub: '', lang: 'en' };
+    const three = others.slice(0, 3);
+    if (t === 'mcPhrase') { q.prompt = 'Which phrase means:'; q.main = it.meaning; q.options = this.shuffle([it.phrase].concat(three.map((o) => o.phrase))); }
+    else if (t === 'mcMeaning') { q.prompt = 'What does this phrase mean?'; q.main = it.phrase; q.answer = it.meaning; q.options = this.shuffle([it.meaning].concat(three.map((o) => o.meaning))); }
+    else if (t === 'vi') { q.prompt = 'Which English phrase matches this Vietnamese meaning?'; q.main = it.vi; q.lang = 'vi'; q.options = this.shuffle([it.phrase].concat(three.map((o) => o.phrase))); }
+    else if (t === 'tf') {
+      const truth = Math.random() < 0.5;
+      q.prompt = 'True or false?'; q.main = '“' + it.phrase + '” means “' + (truth ? it.meaning : others[0].meaning) + '”.';
+      q.options = ['True', 'False']; q.answer = truth ? 'True' : 'False';
+    }
+    else if (t === 'fill') { q.kind = 'type'; q.prompt = 'Type the missing phrase:'; q.main = this.blank(it.example, it.phrase); q.sub = 'Meaning: ' + it.meaning; }
+    else if (t === 'gap') {
+      const cands = this.gapCands(it); const w = cands[Math.floor(Math.random() * cands.length)];
+      const pool = []; others.forEach((o) => this.gapCands(o).forEach((x) => { const lx = x.toLowerCase(); if (lx !== w.toLowerCase() && pool.indexOf(lx) < 0) pool.push(lx); }));
+      q.prompt = 'Choose the missing word:'; q.main = it.phrase.split(/\s+/).map((x) => x === w ? '_____' : x).join(' '); q.sub = 'Meaning: ' + it.meaning;
+      q.answer = w.toLowerCase(); q.options = this.shuffle([w.toLowerCase()].concat(this.shuffle(pool).slice(0, 3)));
+    }
+    else if (t === 'order') {
+      const words = it.phrase.split(/\s+/); let ch = this.shuffle(words); let n = 0;
+      while (ch.join(' ') === words.join(' ') && n++ < 6) ch = this.shuffle(words);
+      q.kind = 'order'; q.prompt = 'Put the words in the right order:'; q.main = it.meaning; q.chips = ch;
+    }
+    return q;
+  }
+  genQuiz(list) {
+    const s = this.state, n = s.vtCount;
+    const types = Object.keys(s.vtTypes).filter((k) => s.vtTypes[k]);
+    const pool = this.shuffle(list); const out = [];
+    for (let i = 0; i < n; i++) {
+      const it = pool[i % pool.length];
+      const others = this.shuffle(s.items.filter((x) => x.id !== it.id && x.meaning !== it.meaning));
+      const ok = types.filter((t) => this.qApplicable(t, it, others));
+      const t = ok.length ? ok[Math.floor(Math.random() * ok.length)] : (others.length >= 3 ? 'mcPhrase' : 'tf');
+      out.push(this.makeQ(t, it, others));
+    }
+    return out;
+  }
+  startQuiz(list) {
+    const pool = list || this.vtPool();
+    if (this.state.items.length < 4) { this.say('Add at least 4 phrases to your bank to take a test.'); return; }
+    if (!pool.length) { this.say('No phrases match these settings.'); return; }
+    const per = { relaxed: 30, normal: 20, fast: 12 }[this.state.vtSpeed];
+    const qz = this.genQuiz(pool);
+    const total = qz.length * per;
+    clearInterval(this.qiv);
+    this.go('practice', { vtView: 'quiz', qz: qz, qzIdx: 0, qzAns: {}, qzOrder: [], qzText: '', qzLeft: total, qzTotal: total });
+    this.qiv = setInterval(() => {
+      if (this.state.qzLeft <= 1) { this.setState({ qzLeft: 0 }); this.finishQuiz(); }
+      else this.setState({ qzLeft: this.state.qzLeft - 1 });
+    }, 1000);
+  }
+  qAnswer(correct, given) {
+    const s = this.state; if (s.qzAns[s.qzIdx]) return;
+    this.setState({ qzAns: Object.assign({}, s.qzAns, { [s.qzIdx]: { correct: correct, given: given } }) });
+  }
+  qNext() {
+    const s = this.state;
+    if (s.qzIdx >= s.qz.length - 1) { this.finishQuiz(); return; }
+    this.setState({ qzIdx: s.qzIdx + 1, qzOrder: [], qzText: '' });
+  }
+  finishQuiz() {
+    clearInterval(this.qiv); this.qiv = null;
+    const s = this.state; if (s.vtView !== 'quiz') return;
+    const right = s.qz.filter((q, i) => s.qzAns[i] && s.qzAns[i].correct).length;
+    const d = new Date(); const hh = d.getHours(), mi = d.getMinutes();
+    const rec = { id: this.nextId++, right: right, total: s.qz.length, speed: s.vtSpeed, when: this.today() + ' ' + (hh < 10 ? '0' : '') + hh + ':' + (mi < 10 ? '0' : '') + mi, used: s.qzTotal - s.qzLeft };
+    this.setState({ vtView: 'result', qzHistory: [rec].concat(s.qzHistory).slice(0, 20) });
+  }
+  startFlash(ids) {
+    const list = ids ? ids : this.shuffle(this.vtPool()).map((i) => i.id);
+    if (!list.length) { this.say('No phrases match these settings.'); return; }
+    this.go('practice', { vtView: 'flash', fcIds: list, fcIdx: 0, fcFlip: false, fcMarks: {} });
+  }
+
+  // ---- helpers ----
+  ymd(d) { const m = d.getMonth() + 1, dd = d.getDate(); return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (dd < 10 ? '0' : '') + dd; }
+  today() { return this.ymd(new Date()); }
+  addDays(s, n) { const d = new Date(s + 'T00:00:00'); d.setDate(d.getDate() + n); return this.ymd(d); }
+  diffDays(a, b) { return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000); }
+  kindOf(name, type) {
+    const n = (name || '').toLowerCase(); type = type || '';
+    if (/\.pdf$/.test(n)) return 'PDF';
+    if (type.indexOf('audio/') === 0 || /\.(mp3|wav|m4a|ogg|aac)$/.test(n)) return 'Audio';
+    if (type.indexOf('video/') === 0) return 'Video';
+    if (type.indexOf('image/') === 0) return 'Image';
+    if (/\.(docx?|txt|rtf|odt|md|pptx?)$/.test(n)) return 'Doc';
+    return 'File';
+  }
+  fmtSize(b) { if (b < 1024) return b + ' B'; if (b < 1048576) return Math.round(b / 1024) + ' KB'; return (b / 1048576).toFixed(1) + ' MB'; }
+  roundBand(x) { const f = Math.floor(x), d = x - f; if (d < 0.25) return f; if (d < 0.75) return f + 0.5; return f + 1; }
+  fmtBand(b) { return (b == null || isNaN(b)) ? '–' : Number(b).toFixed(1); }
+  listeningBand(c) {
+    const t = [[39, 9], [37, 8.5], [35, 8], [32, 7.5], [30, 7], [26, 6.5], [23, 6], [18, 5.5], [16, 5], [13, 4.5], [10, 4], [8, 3.5], [6, 3], [4, 2.5]];
+    for (let i = 0; i < t.length; i++) if (c >= t[i][0]) return t[i][1];
+    return c > 0 ? 2 : 0;
+  }
+  say(msg) { clearTimeout(this.ft); this.setState({ flash: msg }); this.ft = setTimeout(() => this.setState({ flash: '' }), 3500); }
+  topics() {
+    return [['education', 'Education'], ['environment', 'Environment'], ['technology', 'Technology'], ['health', 'Health'], ['work', 'Work & jobs'], ['society', 'Society'],
+      ['government', 'Government'], ['crime', 'Crime'], ['travel', 'Travel'], ['trends', 'Task 1 trends'], ['daily', 'Daily life']];
+  }
+  topicName(k) { const t = this.topics().find((x) => x[0] === k); return t ? t[1] : k; }
+  status(i) { if (!i.reps) return 'new'; if (i.interval >= 21) return 'known'; return 'learning'; }
+  statusName(i) { return { new: 'New', learning: 'Learning', known: 'Known' }[this.status(i)]; }
+  vplan(min) { return { newN: Math.round(min / 3), revN: Math.round(min * 1.5), sentN: min >= 30 ? 4 : min >= 20 ? 3 : 2 }; }
+
+  // ---- library ----
+  addFiles(list, skill) {
+    const files = Array.prototype.slice.call(list || []);
+    if (!files.length) return;
+    const items = files.map((f) => {
+      let url = '';
+      try { url = URL.createObjectURL(f); } catch (e) {}
+      return { id: this.nextId++, title: f.name, skill: skill, kind: this.kindOf(f.name, f.type), size: this.fmtSize(f.size), date: this.today(), url: url, note: '', done: false };
+    });
+    this.setState((s) => ({ materials: items.concat(s.materials), dragging: false }));
+    this.say(files.length + (files.length === 1 ? ' file' : ' files') + ' added to ' + skill + '.');
+  }
+
+  // ---- timer ----
+  stopTimer() { clearInterval(this.iv); this.iv = null; }
+  runTimer() {
+    this.stopTimer();
+    this.iv = setInterval(() => {
+      const s = this.state;
+      if (s.tSecs <= 1) {
+        this.stopTimer();
+        if (this.nextPhase) { const n = this.nextPhase; this.nextPhase = null; this.startTimer(n.secs, n.label); }
+        else this.setState({ tSecs: 0, tRun: false, tLabel: s.tLabel + ' · time up' });
+      } else this.setState({ tSecs: s.tSecs - 1 });
+    }, 1000);
+  }
+  startTimer(secs, label, next) { this.nextPhase = next || null; this.setState({ tSecs: secs, tLabel: label, tRun: true }); this.runTimer(); }
+
+  go(screen, extra) {
+    this.stopTimer(); this.nextPhase = null;
+    if (!(extra && extra.vtView === 'quiz')) { clearInterval(this.qiv); this.qiv = null; }
+    const s = this.state;
+    let t = { screen: screen, tRun: false, tSecs: 0, tLabel: '', pendingSel: '' };
+    if (screen === 'writing') { t.tSecs = s.wTask === 1 ? 1200 : 2400; t.tLabel = 'Task ' + s.wTask + ' timer'; }
+    if (screen === 'speaking') { t.tSecs = s.sPart === 2 ? 60 : 120; t.tLabel = s.sPart === 2 ? 'Preparation' : 'Speaking'; }
+    const up = { reading: 'Reading', listening: 'Listening', writing: 'Writing', speaking: 'Speaking' }[screen];
+    if (up) t.uploadSkill = up;
+    if (s.vtView === 'quiz' && !(extra && extra.vtView)) t.vtView = 'setup';
+    this.setState(Object.assign(t, extra || {}));
+  }
+
+  // ---- vocabulary: spaced repetition ----
+  nextIv(i, g) {
+    let iv = i.interval || 0; const e = i.ease || 2.5, r = i.reps || 0;
+    if (g === 'again') return 0;
+    if (g === 'hard') iv = r === 0 ? 1 : Math.max(1, Math.round(iv * 1.2));
+    else if (g === 'good') iv = r === 0 ? 1 : r === 1 ? 3 : Math.round(iv * e);
+    else iv = r === 0 ? 3 : Math.round(Math.max(iv, 1) * e * 1.3);
+    if (i.kind === 'everyday') iv = Math.max(3, iv * 2);
+    return iv;
+  }
+  ivLabel(n) { if (n === 0) return 'again now'; if (n === 1) return '1 day'; if (n < 30) return n + ' days'; const m = Math.round(n / 30); return m + (m === 1 ? ' month' : ' months'); }
+  buildQueue() {
+    const T = this.today(), s = this.state, p = this.vplan(s.minutes);
+    const due = s.items.filter((i) => i.reps > 0 && i.due <= T).sort((a, b) => (a.kind === b.kind ? (a.due < b.due ? -1 : 1) : a.kind === 'academic' ? -1 : 1));
+    const everyCap = Math.max(1, Math.floor(p.revN * 0.3));
+    let ev = 0; const rev = [];
+    due.forEach((i) => { if (rev.length >= p.revN) return; if (i.kind === 'everyday') { if (ev >= everyCap) return; ev++; } rev.push(i.id); });
+    const learnedToday = s.items.filter((i) => i.firstLearned === T).length;
+    const newOnes = s.items.filter((i) => !i.reps).sort((a, b) => (a.kind === b.kind ? a.id - b.id : a.kind === 'academic' ? -1 : 1))
+      .slice(0, Math.max(0, p.newN - learnedToday)).map((i) => i.id);
+    return rev.concat(newOnes);
+  }
+  startSession() {
+    const q = this.buildQueue();
+    this.go('review', { queue: q, qPos: 0, revealed: false, hint: false, sessionReviewed: 0, sessionStarted: true });
+  }
+  rate(g) {
+    const s = this.state, T = this.today(), id = s.queue[s.qPos];
+    const item = s.items.find((i) => i.id === id); if (!item) return;
+    const iv = this.nextIv(item, g);
+    let ease = item.ease || 2.5;
+    if (g === 'again') ease = Math.max(1.3, ease - 0.2); else if (g === 'hard') ease = Math.max(1.3, ease - 0.15); else if (g === 'easy') ease = ease + 0.15;
+    const upd = Object.assign({}, item, { interval: iv, ease: ease, due: this.addDays(T, iv), reps: g === 'again' ? item.reps : item.reps + 1, firstLearned: item.firstLearned || (g === 'again' ? null : T) });
+    const queue = g === 'again' ? s.queue.concat([id]) : s.queue;
+    const history = Object.assign({}, s.history, { [T]: (s.history[T] || 0) + 1 });
+    this.setState({ items: s.items.map((i) => i.id === id ? upd : i), queue: queue, qPos: s.qPos + 1, revealed: false, hint: false, reviewVi: false, history: history, sessionReviewed: s.sessionReviewed + 1 });
+  }
+  blank(example, phrase) {
+    if (!example) return '';
+    const idx = example.toLowerCase().indexOf(phrase.toLowerCase());
+    if (idx >= 0) return example.slice(0, idx) + '_____' + example.slice(idx + phrase.length);
+    const words = phrase.toLowerCase().split(/\s+/).filter((w) => w.length > 3 && ['something', 'someone'].indexOf(w) < 0);
+    let out = example;
+    words.forEach((w) => { const re = new RegExp('\\b' + w.replace(/[^a-z-]/g, '') + '\\b', 'ig'); out = out.replace(re, '___'); });
+    return out;
+  }
+  goSentence(id) { this.go('sentence', { sId: id || null, sText: '', sFeedback: '' }); }
+  sentQueue() {
+    return this.state.items.slice().sort((a, b) => {
+      if (a.kind !== b.kind) return a.kind === 'academic' ? -1 : 1;
+      if ((a.reps > 0) !== (b.reps > 0)) return a.reps > 0 ? -1 : 1;
+      return a.sentences.length - b.sentences.length;
+    });
+  }
+  checkText(item, text) {
+    const t = text.trim(); if (!t) return { ok: false, msg: 'Write a sentence first.' };
+    const low = t.toLowerCase();
+    const keys = item.phrase.toLowerCase().replace(/\b(something|someone|somebody|sth|sb|one's)\b/g, ' ').split(/[^a-z'-]+/).filter((w) => w.length > 2 && ['the', 'and'].indexOf(w) < 0);
+    const hit = keys.every((w) => low.indexOf(w.length > 5 ? w.slice(0, w.length - 2) : w) >= 0);
+    const words = t.split(/\s+/).length;
+    const lines = [];
+    lines.push(hit ? '✓ You used “' + item.phrase + '”.' : '✗ The full phrase “' + item.phrase + '” is missing. Check each word.');
+    lines.push(words >= 10 ? '✓ Good length (' + words + ' words).' : '• A bit short (' + words + ' words). Add a reason or example so it reads like Writing.');
+    if (!/^[A-Z]/.test(t)) lines.push('• Start with a capital letter.');
+    if (!/[.!?]$/.test(t)) lines.push('• End with a full stop.');
+    if (item.example && low === item.example.toLowerCase()) lines.push('• That is the example sentence. Write your own.');
+    return { ok: hit, msg: lines.join('\n') };
+  }
+  selectionIn(src) {
+    let sel = '';
+    try { sel = (window.getSelection() || '').toString().trim().replace(/\s+/g, ' '); } catch (e) {}
+    if (!sel || sel.length > 80) return null;
+    const sentences = (src || '').match(/[^.!?]+[.!?]*/g) || [];
+    const hitS = sentences.find((x) => x.toLowerCase().indexOf(sel.toLowerCase()) >= 0) || '';
+    return { sel: sel, sentence: hitS.trim() };
+  }
+
+  // ---- AI tutor (preview replies) ----
+  tutorReply(text) {
+    const s = this.state, t = text.toLowerCase();
+    const latest = s.scores[0];
+    const learning = s.items.filter((d) => this.status(d) !== 'known');
+    const unstudied = s.materials.filter((m) => !m.done).length;
+    const T = this.today();
+    const days = s.examDate ? this.diffDays(T, s.examDate) : null;
+    if (this.pendingQuiz) {
+      const w = this.pendingQuiz; this.pendingQuiz = null;
+      return 'The phrase is “' + w.phrase + '”.\nExample: ' + (w.example || '—') + '\n\nCompare it with your answer. Say “quiz me” for another one.';
+    }
+    if (/quiz|vocab|word|phrase/.test(t)) {
+      const pool = learning.filter((w) => w.kind === 'academic').length ? learning.filter((w) => w.kind === 'academic') : learning;
+      if (!pool.length) return 'You know every phrase in your bank. Add new ones and I will quiz you on them.';
+      const w = pool[Math.floor(Math.random() * pool.length)]; this.pendingQuiz = w;
+      return 'Quick quiz (' + pool.length + ' phrases still learning):\n\nWhich phrase means “' + w.meaning + '”?\nHint: ' + this.blank(w.example, w.phrase);
+    }
+    if (/plan|path|schedule|focus|today|start|roadmap/.test(t)) {
+      const p = this.vplan(s.minutes);
+      const lines = ['Here is a study path based on what I can see:', ''];
+      lines.push('• Target: band ' + this.fmtBand(s.target) + (latest ? ', latest overall ' + this.fmtBand(latest.o) : ''));
+      if (days != null && days >= 0) lines.push('• Time left: ' + days + ' days');
+      if (latest) {
+        const sk = [['Listening', latest.l], ['Reading', latest.r], ['Writing', latest.w], ['Speaking', latest.s]].sort((a, b) => a[1] - b[1]);
+        lines.push('• Main focus: ' + sk[0][0] + ' (band ' + this.fmtBand(sk[0][1]) + '). Practise it 3–4 times a week.');
+      } else lines.push('• First step: take a full mock test and log it, so I can find your weakest skill.');
+      lines.push('• Every day (' + s.minutes + ' min): ~' + p.newN + ' new phrases, reviews, and ' + p.sentN + ' sentences.');
+      lines.push('• Collect phrases mainly from your own Writing, then Reading and Listening.');
+      lines.push('• Library: ' + unstudied + ' materials not studied yet.');
+      lines.push('• Every 2 weeks: another mock test to track progress.');
+      return lines.join('\n');
+    }
+    if (/essay|writing|task 1|task 2|check my/.test(t)) {
+      const words = s.essay.trim() ? s.essay.trim().split(/\s+/).length : 0, min = s.wTask === 1 ? 150 : 250;
+      if (!words) return 'Write or paste your essay in the Writing screen, then ask “check my essay”. I will review it against the four criteria: ' + (s.wTask === 1 ? 'Task Achievement' : 'Task Response') + ', Coherence & Cohesion, Lexical Resource, and Grammatical Range & Accuracy.';
+      const used = s.items.filter((i) => s.essay.toLowerCase().indexOf(i.phrase.toLowerCase()) >= 0).map((i) => i.phrase);
+      return 'Your Task ' + s.wTask + ' draft has ' + words + ' words' + (words < min ? ', below the ' + min + '-word minimum, which lowers your score.' : ', which meets the minimum.') +
+        '\n' + (used.length ? 'Phrases from your bank you used: ' + used.join(', ') + '.' : 'You have not used any phrases from your bank yet. Try adding 2–3.') +
+        '\n\nThings to check:\n• ' + (s.wTask === 1 ? 'Is there a clear overview of the main trends?' : 'Is your position clear in the introduction and conclusion?') + '\n• One main idea per paragraph, with a supporting example\n• Vary your linkers (however, as a result, in contrast)';
+    }
+    if (/not given|true|false|reading|skim|scan/.test(t)) return 'True / False / Not Given:\n• TRUE: the passage says the same thing, often in different words.\n• FALSE: the passage says the opposite.\n• NOT GIVEN: the passage does not say. Don’t use your own knowledge.\n\nTip: answers follow the order of the passage. Find the keywords, then read that sentence closely.';
+    if (/listening|map|spelling|audio/.test(t)) return 'Listening tips:\n• Read the questions before each section and predict the type of answer (number, name, place).\n• Watch the word limit, e.g. “NO MORE THAN TWO WORDS”.\n• Spelling counts. Practise names, dates and numbers.\n• If you miss one, move on. The audio only plays once.';
+    if (/speaking|cue card|part 2|part 1|part 3|fluency/.test(t)) return 'Speaking Part 2:\n• Use your 1 minute of preparation for keywords, not sentences.\n• Cover each bullet point, then spend the most time on “explain why”.\n• Aim to talk for the full 2 minutes. Add a short story or example.\n• Drop in a few everyday phrases from your bank. They sound natural in speaking.';
+    if (/score|band|trend|progress/.test(t)) {
+      if (!s.scores.length) return 'No mock test scores yet. Log one in Mock tests & scores and I will track your trend.';
+      const first = s.scores[s.scores.length - 1];
+      return 'You have ' + s.scores.length + ' test(s) logged. Latest overall: ' + this.fmtBand(latest.o) + (s.scores.length > 1 ? ' (first: ' + this.fmtBand(first.o) + ')' : '') + '. Target: ' + this.fmtBand(s.target) + '.';
+    }
+    return 'Good question. In the live version I will answer it in full, using your library, phrases and scores as context.\n\nFor now, try “make me a study plan”, “check my essay”, “explain True vs Not Given” or “quiz me on my phrases”.';
+  }
+  sendChat(raw) {
+    const text = (raw || '').trim();
+    if (!text || this.state.typing) return;
+    let id = this.state.activeChat;
+    this.setState((st) => {
+      let chats = st.chats.slice();
+      if (!id || !chats.find((c) => c.id === id)) {
+        id = this.nextId++;
+        chats = [{ id: id, title: text.length > 42 ? text.slice(0, 42) + '…' : text, date: this.today(), msgs: [] }].concat(chats);
+      }
+      chats = chats.map((c) => c.id === id ? Object.assign({}, c, { msgs: c.msgs.concat([{ role: 'user', text: text }]) }) : c);
+      return { chats: chats, activeChat: id, chatInput: '', typing: true };
+    });
+    this.rt = setTimeout(() => {
+      const reply = this.tutorReply(text);
+      this.setState((st) => ({ typing: false, chats: st.chats.map((c) => c.id === id ? Object.assign({}, c, { msgs: c.msgs.concat([{ role: 'ai', text: reply }]) }) : c) }));
+    }, 700);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const scr = s.screen;
+    const T = this.today();
+    const vp = this.vplan(s.minutes);
+    const onTab = (on) => ({ bg: on ? '#5B3FD9' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1E1B3A', bd: on ? '#5B3FD9' : '#D3CCEE' });
+    const TINT = { '#0EA5B7': '#E3F7FA', '#2563EB': '#E8F0FE', '#F0623A': '#FEECE6', '#A855F7': '#F5EBFE' };
+    const kindStyle = (k) => k === 'everyday' ? { kindBg: '#FFEBDA', kindFg: '#8A4209', kindLabel: 'Everyday / spoken' } : { kindBg: '#EEEAFE', kindFg: '#3B2799', kindLabel: 'Academic' };
+    const SKILLCOL = { Listening: '#0EA5B7', Reading: '#2563EB', Writing: '#F0623A', Speaking: '#A855F7' };
+
+    // vocab numbers
+    const dueAll = s.items.filter((i) => i.reps > 0 && i.due <= T);
+    const newAll = s.items.filter((i) => !i.reps);
+    const learnedToday = s.items.filter((i) => i.firstLearned === T).length;
+    const reviewToday = Math.min(vp.revN, dueAll.length);
+    const newToday = Math.min(Math.max(0, vp.newN - learnedToday), newAll.length);
+    const sentToday = s.items.reduce((n, i) => n + i.sentences.filter((x) => x.d === T).length, 0);
+    const learned = s.items.filter((i) => i.reps > 0).length;
+    const daysLeft = s.examDate ? this.diffDays(T, s.examDate) : null;
+    const elapsed = 90 - (daysLeft == null ? 90 : daysLeft);
+
+    const NAV = [
+      ['dash', 'Dashboard', '', ''], ['library', 'My library', '', ''],
+      ['review', 'Review', reviewToday + newToday ? String(reviewToday + newToday) : '', 'Vocabulary'], ['sentence', 'Sentence practice', '', ''], ['practice', 'Flashcards & tests', '', ''], ['bank', 'Phrase bank', '', ''], ['add', 'Add phrase', '', ''],
+      ['reading', 'Reading', '', 'Skills'], ['listening', 'Listening', '', ''], ['writing', 'Writing', '', ''], ['speaking', 'Speaking', '', ''],
+      ['tests', 'Mock tests & scores', '', 'Progress'], ['exam', 'Mock exam (coming soon)', '', ''], ['tutor', 'AI tutor', '', '']
+    ];
+    const TITLES = { dash: ['Overview', 'Welcome back'], library: ['Learning sources', 'My library'], review: ['Spaced repetition', 'Review'], sentence: ['Use it actively', 'Sentence practice'], practice: ['Phrase bank practice', 'Flashcards & tests'],
+      bank: ['By topic', 'Phrase bank'], add: ['Collect new phrases', 'Add phrase'], reading: ['Practice', 'Reading'], listening: ['Practice', 'Listening'], writing: ['Practice', 'Writing'],
+      speaking: ['Practice', 'Speaking'], tests: ['Progress', 'Mock tests & scores'], exam: ['Phase 2', 'Mock exam'], tutor: ['Q&A support', 'AI tutor'] };
+    const PAGECOL = { dash: '#FF9F43', library: '#16A34A', review: '#E8488A', sentence: '#E8488A', practice: '#E8488A', bank: '#E8488A', add: '#E8488A', reading: '#2563EB', listening: '#0EA5B7', writing: '#F0623A', speaking: '#A855F7', tests: '#5B3FD9', exam: '#5B3FD9', tutor: '#5B3FD9' };
+    const skillOfScreen = { reading: 'Reading', listening: 'Listening', writing: 'Writing', speaking: 'Speaking' }[scr];
+
+    // Library
+    const q = s.query.trim().toLowerCase();
+    const libItems = s.materials
+      .filter((m) => (s.libFilter === 'All' || m.skill === s.libFilter) && (!q || (m.title + ' ' + m.note).toLowerCase().indexOf(q) >= 0))
+      .map((m) => ({
+        kind: m.kind, title: m.title, url: m.url, note: m.note,
+        meta: m.skill + (m.size ? ' · ' + m.size : '') + ' · Added ' + m.date + (m.done ? ' · Studied' : ''),
+        deco: m.done ? 'line-through' : 'none', doneLabel: m.done ? 'Mark unstudied' : 'Mark studied',
+        toggle: () => this.setState((st) => ({ materials: st.materials.map((x) => x.id === m.id ? Object.assign({}, x, { done: !x.done }) : x) })),
+        remove: () => this.setState((st) => ({ materials: st.materials.filter((x) => x.id !== m.id) }))
+      }));
+    const filters = ['All', 'Reading', 'Listening', 'Writing', 'Speaking', 'Vocabulary', 'Grammar', 'General'].map((f) => {
+      const c = onTab(s.libFilter === f);
+      return { label: f, bg: c.bg, fg: c.fg, bd: c.bd, pick: () => this.setState({ libFilter: f }) };
+    });
+    const skillMats = skillOfScreen ? s.materials.filter((m) => m.skill === skillOfScreen) : [];
+
+    // Plan
+    const planDone = s.plan.filter((p) => p.done).length;
+    const plan = s.plan.map((p) => ({
+      text: p.text, done: p.done, deco: p.done ? 'line-through' : 'none', color: p.done ? '#5B5775' : '#1E1B3A',
+      toggle: () => this.setState((st) => ({ plan: st.plan.map((x) => x.id === p.id ? Object.assign({}, x, { done: !x.done }) : x) })),
+      remove: (e) => { if (e) e.preventDefault(); this.setState((st) => ({ plan: st.plan.filter((x) => x.id !== p.id) })); }
+    }));
+
+    // Scores
+    const latest = s.scores[0];
+    const skillBands = ['Listening', 'Reading', 'Writing', 'Speaking'].map((k) => {
+      const v = latest ? latest[k[0].toLowerCase()] : null;
+      return { skill: k, label: latest ? this.fmtBand(v) : 'No score yet', pct: latest ? (v / 9) * 100 : 0, color: SKILLCOL[k] };
+    });
+    const daysLeftLabel = daysLeft == null ? 'Set your test date' : daysLeft > 1 ? daysLeft + ' days to go (≈ ' + Math.round(daysLeft / 7) + ' weeks)' : daysLeft === 1 ? 'Tomorrow — good luck!' : daysLeft === 0 ? 'Test day!' : 'Test date has passed';
+    const gap = latest ? s.target - latest.o : null;
+    const gapLabel = !latest ? 'Log a mock test to see where you stand' : gap > 0 ? this.fmtBand(gap) + ' below your target of ' + this.fmtBand(s.target) : 'At or above your target';
+
+    // Reading
+    const RQ = [
+      { id: 1, text: 'Urban beekeeping has become more popular in recent decades.', a: 'TRUE' },
+      { id: 2, text: 'All ecologists support the spread of rooftop hives.', a: 'FALSE' },
+      { id: 3, text: 'City honeybees produce more honey than countryside bees.', a: 'NOT GIVEN' },
+      { id: 4, text: 'Flowering plants in the surveyed city increased as fast as the number of hives.', a: 'FALSE' },
+      { id: 5, text: 'Researchers think native flowers may be more important than extra hives.', a: 'TRUE' }
+    ];
+    const PASSAGE = 'Urban beekeeping has grown rapidly in many European and North American cities over the past two decades. Supporters argue that rooftop hives help pollinate city gardens and raise public awareness of declining insect populations. However, some ecologists warn that adding large numbers of honeybees can increase competition for flowers, putting pressure on wild bee species that already struggle to find food in built-up areas. One city survey found that the number of hives had tripled in ten years, while the area of flowering plants had barely changed. For this reason, researchers suggest that planting more native flowers may matter more than simply adding hives.';
+    let rCorrect = 0;
+    const rq = RQ.map((qq, i) => {
+      const mine = s.rAns[qq.id];
+      const right = mine === qq.a; if (right) rCorrect++;
+      return {
+        n: i + 1, text: qq.text,
+        result: s.rChecked ? (right ? '✓ Correct' : '✗ ' + qq.a) : '', resColor: right ? '#5B3FD9' : '#A3500C',
+        opts: ['TRUE', 'FALSE', 'NOT GIVEN'].map((o) => {
+          const c = onTab(mine === o);
+          return { label: o, bg: c.bg, fg: c.fg, bd: c.bd, pick: () => this.setState((st) => ({ rAns: Object.assign({}, st.rAns, { [qq.id]: o }), rChecked: false })) };
+        })
+      };
+    });
+
+    // Listening
+    const audios = s.materials.filter((m) => m.kind === 'Audio' && m.url);
+    const curAudio = audios.find((a) => a.id === s.audioId) || audios[0];
+    const audioMats = audios.length > 1 ? audios.map((a) => ({
+      title: a.title, bg: curAudio && a.id === curAudio.id ? '#EEEAFE' : '#FFFFFF', bd: curAudio && a.id === curAudio.id ? '#5B3FD9' : '#D3CCEE',
+      pick: () => this.setState({ audioId: a.id })
+    })) : [];
+
+    // Writing
+    const words = s.essay.trim() ? s.essay.trim().split(/\s+/).length : 0;
+    const minWords = s.wTask === 1 ? 150 : 250;
+    const CRIT = s.wTask === 1
+      ? [['ta', 'Task Achievement', 'Clear overview; key features compared'], ['cc', 'Coherence & Cohesion', 'Logical paragraphs, varied linkers'], ['lr', 'Lexical Resource', 'Precise trend and comparison language'], ['gra', 'Grammatical Range & Accuracy', 'Mix of complex sentences, few errors']]
+      : [['tr', 'Task Response', 'All parts answered; clear position'], ['cc', 'Coherence & Cohesion', 'One main idea per paragraph'], ['lr', 'Lexical Resource', 'Topic phrases and collocations'], ['gra', 'Grammatical Range & Accuracy', 'Mix of complex sentences, few errors']];
+    const timerOn = scr === 'writing' || scr === 'speaking';
+    const timerBtns = [];
+    if (timerOn) {
+      if (s.tRun) timerBtns.push({ label: 'Pause', act: () => { this.stopTimer(); this.setState({ tRun: false }); } });
+      else if (s.tSecs > 0) timerBtns.push({ label: 'Start', act: () => {
+        if (scr === 'speaking' && s.sPart === 2 && s.tLabel === 'Preparation' && s.tSecs === 60) this.startTimer(60, 'Preparation', { secs: 120, label: 'Speak now' });
+        else { this.setState({ tRun: true }); this.runTimer(); }
+      } });
+      timerBtns.push({ label: 'Reset', act: () => this.go(scr) });
+    }
+    const mm = Math.floor(s.tSecs / 60), ss = s.tSecs % 60;
+
+    // Speaking
+    const SQ = {
+      1: ['Do you work or are you a student?', 'What do you enjoy about the area where you live?', 'How often do you use public transport? Why?'],
+      3: ['Do people read less than they used to? Why?', 'How might technology change the way children learn?', 'Should governments pay for public libraries?']
+    };
+    const SINTRO = { 1: 'Part 1 · Introduction & interview · 4–5 minutes', 2: 'Part 2 · Long turn · 1 min prep, up to 2 min talk', 3: 'Part 3 · Discussion · 4–5 minutes' };
+    const spoken = s.items.filter((i) => i.kind === 'everyday').slice(0, 8).map((i) => ({ t: i.phrase }));
+
+    // Review card
+    const inSession = s.sessionStarted && s.qPos < s.queue.length;
+    const sessionDone = s.sessionStarted && s.queue.length > 0 && s.qPos >= s.queue.length;
+    const cur = inSession ? s.items.find((i) => i.id === s.queue[s.qPos]) : null;
+    const VI_PREVIEW = 'Preview: in the live app, AI translates and explains this phrase in Vietnamese.';
+    const viOf = (i) => ({ vi: i.vi || '', viNote: i.viNote || '', viPreview: (i.vi || i.viNote) ? '' : VI_PREVIEW });
+    let card = { bar: '#5B3FD9', kindBg: '', kindFg: '', kindLabel: '', topic: '', newLabel: '', prompt: '', front: '', frontSub: '', hint: '', back: '', example: '', related: '', source: '', vi: '', viNote: '', viPreview: '' };
+    let curMode = s.mode;
+    if (cur) {
+      const mode = cur.kind === 'everyday' ? 'recognize' : s.mode;
+      curMode = mode;
+      card = Object.assign({ bar: cur.kind === 'everyday' ? '#FF9F43' : '#5B3FD9' }, kindStyle(cur.kind), viOf(cur), {
+        topic: this.topicName(cur.topic), newLabel: cur.reps ? this.statusName(cur) : 'New phrase',
+        prompt: mode === 'produce' ? 'Recall the English phrase that means:' : (cur.kind === 'everyday' && s.mode === 'produce' ? 'Everyday phrase: recognising the meaning is enough' : 'What does this phrase mean?'),
+        front: mode === 'produce' ? cur.meaning : cur.phrase,
+        frontSub: mode === 'produce' ? this.blank(cur.example, cur.phrase) : cur.example,
+        hint: cur.phrase.split(' ').map((w) => w[0] + '…').join(' '),
+        back: mode === 'produce' ? cur.phrase : cur.meaning,
+        example: cur.example, related: cur.related, source: cur.source + (cur.note ? ' · ' + cur.note : '')
+      });
+    }
+    const GR = [['again', 'Again', '#FFFFFF', '#8A4209', '#E8B98E'], ['hard', 'Hard', '#FFFFFF', '#1E1B3A', '#D3CCEE'], ['good', 'Good', '#EEEAFE', '#3B2799', '#B7A8F5'], ['easy', 'Easy', '#5B3FD9', '#FFFFFF', '#5B3FD9']];
+    const grades = cur ? GR.map((g) => ({ label: g[1], next: this.ivLabel(this.nextIv(cur, g[0])), bg: g[2], fg: g[3], bd: g[4], rate: () => this.rate(g[0]) })) : [];
+
+    // Sentence practice
+    const sq = this.sentQueue();
+    const sItem = s.items.find((i) => i.id === s.sId) || sq[0];
+    const si = sItem ? Object.assign({}, kindStyle(sItem.kind), viOf(sItem), {
+      phrase: sItem.phrase, meaning: sItem.meaning, example: sItem.example, topic: this.topicName(sItem.topic),
+      task: 'Write one sentence about ' + this.topicName(sItem.topic).toLowerCase() + (sItem.sentences.length ? ' (try a different angle from last time)' : '') + ' using “' + sItem.phrase + '”, as if you were writing Task 2.'
+    }) : {};
+
+    // Bank
+    const bq = s.bQuery.trim().toLowerCase();
+    const bankItems = s.items.filter((i) =>
+      (s.bTopic === 'All' || i.topic === s.bTopic) && (s.bSource === 'All' || i.source === s.bSource) &&
+      (s.bKind === 'All' || i.kind === s.bKind) && (s.bStatus === 'All' || this.status(i) === s.bStatus) &&
+      (!bq || (i.phrase + ' ' + i.meaning + ' ' + i.example).toLowerCase().indexOf(bq) >= 0));
+    const topicCards = [{ k: 'All', name: 'All topics', n: s.items.length }].concat(this.topics().map((t) => ({ k: t[0], name: t[1], n: s.items.filter((i) => i.topic === t[0]).length })))
+      .map((t, ix) => { const pal = [['#5B3FD9', '#EEEAFE'], ['#2563EB', '#E8F0FE'], ['#16A34A', '#E7F6EC'], ['#0B7C8A', '#E3F7FA'], ['#C02C6C', '#FDE8F1'], ['#C2410C', '#FEECE6'], ['#7E22CE', '#F5EBFE'], ['#B45309', '#FEF3DC']][ix % 8]; const on = s.bTopic === t.k; return Object.assign(t, { bg: on ? pal[0] : pal[1], fg: on ? '#FFFFFF' : pal[0], bd: pal[0], pick: () => this.setState({ bTopic: t.k }) }); });
+
+    const SRC = [['Writing', '#F0623A'], ['Reading', '#2563EB'], ['Listening', '#0EA5B7'], ['Speaking', '#A855F7']];
+    const maxSrc = Math.max(1, ...SRC.map((x) => s.items.filter((i) => i.source === x[0]).length));
+    const acad = s.items.filter((i) => i.kind === 'academic').length, every = s.items.length - acad;
+    const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const week = [];
+    for (let k = 6; k >= 0; k--) {
+      const d = this.addDays(T, -k), n = s.history[d] || 0;
+      week.push({ n: n || '', d: k === 0 ? 'Today' : DOW[new Date(d + 'T00:00:00').getDay()], bg: n ? (k === 0 ? '#5B3FD9' : '#B7A8F5') : '#F0EDFA', fg: n ? (k === 0 ? '#FFFFFF' : '#1E1B3A') : '#5B5775' });
+    }
+    const PH = [
+      [0, 30, 'Month 1', 'Build your phrase bank by topic', 'Focus on 1–2 common topics a week (Education, Environment, Technology, Work). Collect mostly from your Writing and Reading.'],
+      [30, 60, 'Month 2', 'Use phrases actively', 'More sentence practice: at least 2 sentences per academic phrase. Put learned phrases into new essays.'],
+      [60, 999, 'Month 3', 'Consolidate before the exam', 'Fewer new phrases, more review of hard cards. Use your phrase bank during mock tests.']
+    ];
+
+
+    // Flashcards & tests view model
+    const QT = this.qTypes();
+    const vtPool = this.vtPool();
+    const per = { relaxed: 30, normal: 20, fast: 12 }[s.vtSpeed];
+    const pill = (on, col) => ({ bg: on ? col : '#FFFFFF', fg: on ? '#FFFFFF' : '#1E1B3A', bd: on ? col : '#D3CCEE', pressed: on ? 'true' : 'false' });
+    const fcCur = s.fcIds.length && s.fcIdx < s.fcIds.length ? s.items.find((i) => i.id === s.fcIds[s.fcIdx]) : null;
+    const fcKnownN = s.fcIds.filter((id) => s.fcMarks[id] === 'know').length;
+    const fcLearnIds = s.fcIds.filter((id) => s.fcMarks[id] === 'learn');
+    const fcMark = (m) => { if (!fcCur) return; this.setState({ fcMarks: Object.assign({}, s.fcMarks, { [fcCur.id]: m }), fcIdx: s.fcIdx + 1, fcFlip: false }); };
+    const q0 = s.vtView === 'quiz' ? s.qz[s.qzIdx] : null;
+    const a0 = q0 ? s.qzAns[s.qzIdx] : null;
+    let qv = { color: '#5B3FD9', tint: '#EEEAFE', dark: '#3B2799', typeLabel: '', prompt: '', main: '', sub: '', lang: 'en', isChoice: false, isType: false, isOrder: false, options: [], chips: [], built: [], noneBuilt: true, answered: false, fbBg: '', fbFg: '', fbTitle: '', fbText: '', fbExample: '' };
+    if (q0) {
+      const tt = QT[q0.type];
+      const keys = ['A', 'B', 'C', 'D'];
+      qv = {
+        color: tt[1], tint: tt[2], dark: tt[3], typeLabel: tt[0], prompt: q0.prompt, main: q0.main, sub: q0.sub, lang: q0.lang,
+        isChoice: q0.kind === 'choice', isType: q0.kind === 'type', isOrder: q0.kind === 'order',
+        options: q0.options.map((o, k) => {
+          const isAns = o === q0.answer, isGiven = a0 && a0.given === o;
+          const st = !a0 ? ['#FFFFFF', '#1E1B3A', '#D3CCEE', tt[2], tt[3]] : isAns ? ['#E7F6EC', '#166534', '#16A34A', '#16A34A', '#FFFFFF'] : isGiven ? ['#FEECE6', '#9A3412', '#F0623A', '#F0623A', '#FFFFFF'] : ['#FFFFFF', '#5B5775', '#E4E0F5', '#F0EDFA', '#5B5775'];
+          return { label: o, key: a0 && isAns ? '✓' : a0 && isGiven ? '✗' : keys[k], bg: st[0], fg: st[1], bd: st[2], keyBg: st[3], keyFg: st[4], pick: () => this.qAnswer(isAns, o) };
+        }),
+        chips: q0.chips.map((w, k) => ({ t: w, k: k })).filter((c) => s.qzOrder.indexOf(c.k) < 0).map((c) => ({ t: c.t, pick: () => {
+          if (a0) return;
+          const order = s.qzOrder.concat([c.k]);
+          if (order.length === q0.chips.length) { const built = order.map((k) => q0.chips[k]).join(' '); this.setState({ qzOrder: order }); this.qAnswer(this.norm(built) === this.norm(q0.answer), built); }
+          else this.setState({ qzOrder: order });
+        } })),
+        built: s.qzOrder.map((k) => ({ t: q0.chips[k] })), noneBuilt: s.qzOrder.length === 0,
+        answered: !!a0,
+        fbBg: a0 && a0.correct ? '#E7F6EC' : '#FEECE6', fbFg: a0 && a0.correct ? '#166534' : '#7C2D12',
+        fbTitle: a0 ? (a0.correct ? '✓ Correct!' : '✗ Not quite.') : '',
+        fbText: a0 ? (a0.correct ? '' : 'Answer: ' + q0.answer + '.') + (q0.type === 'mcMeaning' || q0.type === 'tf' ? ' “' + q0.phrase + '” = ' + q0.meaning + '.' : '') : '',
+        fbExample: q0.example ? 'Example: ' + q0.example : ''
+      };
+    }
+    const mmq = Math.floor(s.qzLeft / 60), ssq = s.qzLeft % 60;
+    const lowTime = s.qzTotal && s.qzLeft / s.qzTotal < 0.25;
+    const rRight = s.qz.filter((q, i) => s.qzAns[i] && s.qzAns[i].correct).length;
+    const rPct = s.qz.length ? Math.round(rRight / s.qz.length * 100) : 0;
+    const wrongIds = []; s.qz.forEach((q, i) => { if (!(s.qzAns[i] && s.qzAns[i].correct) && wrongIds.indexOf(q.itemId) < 0) wrongIds.push(q.itemId); });
+    const lastRec = s.qzHistory[0];
+    const byType = {}; s.qz.forEach((q, i) => { byType[q.type] = byType[q.type] || [0, 0]; byType[q.type][1]++; if (s.qzAns[i] && s.qzAns[i].correct) byType[q.type][0]++; });
+
+    // AI tutor
+    const chat = s.chats.find((c) => c.id === s.activeChat);
+    const cq = s.chatQuery.trim().toLowerCase();
+    const chatList = s.chats
+      .filter((c) => !cq || (c.title + ' ' + c.msgs.map((m) => m.text).join(' ')).toLowerCase().indexOf(cq) >= 0)
+      .map((c) => {
+        const on = c.id === s.activeChat;
+        return { title: c.title, meta: c.date + ' · ' + c.msgs.length + ' messages', bg: on ? '#EEEAFE' : '#FFFFFF', bd: on ? '#5B3FD9' : '#D3CCEE',
+          open: () => this.setState({ activeChat: c.id }),
+          remove: () => this.setState((st) => ({ chats: st.chats.filter((x) => x.id !== c.id), activeChat: st.activeChat === c.id ? null : st.activeChat })) };
+      });
+    const STARTERS = {
+      dash: ['Make me a study plan to reach my target', 'What should I focus on today?', 'How are my scores trending?', 'Quiz me on my phrases'],
+      review: ['Quiz me on my phrases', 'How do I remember phrases longer?', 'Make me a study plan'],
+      sentence: ['Quiz me on my phrases', 'How do I use collocations in Task 2?', 'Check my essay'],
+      bank: ['Quiz me on my phrases', 'Which topics should I learn first?', 'Make me a study plan'],
+      add: ['How do I choose useful phrases?', 'Quiz me on my phrases', 'Make me a study plan'],
+      writing: ['Check my essay', 'How do I structure a Task 2 essay?', 'Make me a study plan'],
+      reading: ['Explain True vs False vs Not Given', 'How do I skim and scan faster?', 'Make me a study plan'],
+      listening: ['Tips for Listening map questions', 'How do I stop missing answers?', 'Make me a study plan'],
+      speaking: ['How do I answer this Part 2 cue card?', 'How can I improve my fluency?', 'Make me a study plan'],
+      tests: ['How are my scores trending?', 'Make me a study plan to reach my target', 'What should I focus on today?']
+    };
+    const starters = (STARTERS[scr] || STARTERS.dash).map((t) => ({ t: t, ask: () => this.sendChat(t) }));
+    const ctxChips = [
+      { t: s.items.length + ' phrases' }, { t: s.materials.length + ' library items' },
+      { t: latest ? 'Latest band ' + this.fmtBand(latest.o) : 'No scores yet' },
+      { t: 'Target ' + this.fmtBand(s.target) }, { t: s.examDate ? daysLeftLabel : 'No exam date' }
+    ];
+
+    return {
+      nav: NAV.map((n) => { const on = n[0] === scr; return { label: n[1], badge: n[2], head: n[3], dot: PAGECOL[n[0]], bg: on ? '#4B38A3' : 'transparent', fg: on ? '#FFFFFF' : '#DCD5F8', fw: on ? 600 : 400,
+        go: () => n[0] === 'review' ? this.startSession() : n[0] === 'sentence' ? this.goSentence() : n[0] === 'practice' ? this.go('practice', { vtView: s.vtView === 'quiz' ? 'setup' : s.vtView }) : this.go(n[0]) }; }),
+      pageColor: PAGECOL[scr], eyebrow: TITLES[scr][0], heading: TITLES[scr][1], flash: s.flash,
+      targetLabel: this.fmtBand(s.target), targetPct: (s.target / 9) * 100,
+      targetDown: () => this.setState({ target: Math.max(4, s.target - 0.5) }),
+      targetUp: () => this.setState({ target: Math.min(9, s.target + 0.5) }),
+      sideDays: daysLeft == null ? 'Set your exam date' : daysLeft > 0 ? daysLeft + ' days to exam' : 'Exam date reached',
+      onFiles: (e) => { this.addFiles(e.target.files, s.uploadSkill); e.target.value = ''; },
+      onSkillFiles: (e) => { this.addFiles(e.target.files, skillOfScreen); e.target.value = ''; },
+      goAdd: () => this.go('add'), goDash: () => this.go('dash'), goTests: () => this.go('tests'), goSentence: () => this.goSentence(),
+
+      isDash: scr === 'dash', isLibrary: scr === 'library', isReview: scr === 'review', isSentence: scr === 'sentence', isBank: scr === 'bank', isAdd: scr === 'add',
+      isReading: scr === 'reading', isListening: scr === 'listening', isWriting: scr === 'writing', isSpeaking: scr === 'speaking',
+      isPractice: scr === 'practice', isTests: scr === 'tests', isExam: scr === 'exam', isTutor: scr === 'tutor',
+      isSkill: !!skillOfScreen, skillName: skillOfScreen || '',
+
+      // dashboard
+      planTitle: s.minutes + ' min · ' + (reviewToday + newToday) + ' cards, ' + vp.sentN + ' sentences',
+      minuteOpts: [15, 20, 30].map((m) => { const on = s.minutes === m; return { label: m + ' min', bg: on ? '#FF9F43' : '#4B38A3', fg: on ? '#1E1B3A' : '#FFFFFF', bd: on ? '#FF9F43' : '#6450C2', pick: () => this.setState({ minutes: m }) }; }),
+      planSteps: [
+        { step: 'Step 1', value: reviewToday, label: 'cards to review', time: '≈ ' + Math.max(1, Math.round(reviewToday * 20 / 60)) + ' min' },
+        { step: 'Step 2', value: newToday, label: 'new phrases', time: '≈ ' + Math.max(1, newToday) + ' min' },
+        { step: 'Step 3', value: Math.max(0, vp.sentN - sentToday), label: 'sentences to write', time: '≈ ' + vp.sentN * 2 + ' min' }
+      ],
+      startSession: () => this.startSession(),
+      examDate: s.examDate, setExamDate: (e) => this.setState({ examDate: e.target.value }), daysLeftLabel: daysLeftLabel,
+      latestOverall: latest ? this.fmtBand(latest.o) : '–', gapLabel: gapLabel,
+      learnedCount: learned, goalPhrases: s.goalPhrases, goalPct: Math.min(100, learned / s.goalPhrases * 100),
+      perDayLabel: daysLeft > 0 ? 'About ' + Math.ceil(Math.max(0, s.goalPhrases - learned) / daysLeft) + ' new phrases a day to stay on track' : 'Set an exam date to plan',
+      matCount: s.materials.length, studiedLabel: s.materials.filter((m) => m.done).length + ' studied · ' + s.materials.filter((m) => !m.done).length + ' to go',
+      plan: plan, planDoneLabel: planDone + ' of ' + s.plan.length + ' done', planPct: s.plan.length ? (planDone / s.plan.length) * 100 : 0,
+      newTask: s.newTask, setNewTask: (e) => this.setState({ newTask: e.target.value }),
+      addTask: () => { const t = s.newTask.trim(); if (!t) return; this.setState({ plan: s.plan.concat([{ id: this.nextId++, text: t, done: false }]), newTask: '' }); },
+      skillBands: skillBands,
+      phases: PH.map((ph) => { const now = elapsed >= ph[0] && elapsed < ph[1]; return { name: ph[2], focus: ph[3], detail: ph[4], now: now, bd: now ? '#5B3FD9' : '#E4E0F5', bg: now ? '#F7F5FF' : '#FFFFFF' }; }),
+      sourceBars: SRC.map((x) => { const n = s.items.filter((i) => i.source === x[0]).length; return { label: x[0], n: n, pct: n / maxSrc * 100, color: x[1] }; }),
+      acadCount: acad, everyCount: every, acadPct: s.items.length ? acad / s.items.length * 100 : 0, everyPct: s.items.length ? every / s.items.length * 100 : 0,
+      week: week,
+      skillTiles: [['reading', 'Reading', 'Passages & question types'], ['listening', 'Listening', 'Play audio, mark answers'], ['writing', 'Writing', 'Timed Task 1 & Task 2'], ['speaking', 'Speaking', 'Cue cards with timer']].map((t) => ({ label: t[1], sub: t[2], color: SKILLCOL[t[1]], tint: TINT[SKILLCOL[t[1]]], go: () => this.go(t[0]) })),
+
+      // review
+      modeOpts: [['produce', 'Meaning → phrase'], ['recognize', 'Phrase → meaning']].map((m) => { const c = onTab(s.mode === m[0]); return { label: m[1], bg: c.bg, fg: c.fg, bd: c.bd, pick: () => this.setState({ mode: m[0], revealed: false }) }; }),
+      sessionProgress: inSession ? 'Card ' + (s.qPos + 1) + ' of ' + s.queue.length : '',
+      sessionPct: s.queue.length ? s.qPos / s.queue.length * 100 : 0,
+      inSession: inSession, sessionDone: sessionDone, noSession: !inSession && !sessionDone,
+      card: card, revealed: s.revealed, notRevealed: !s.revealed, showHint: s.hint && !s.revealed,
+      reveal: () => this.setState({ revealed: true }), toggleHint: () => this.setState({ hint: !s.hint }),
+      canVi: !!cur && (s.revealed || curMode === 'recognize'), reviewVi: s.reviewVi, reviewViStr: s.reviewVi ? 'true' : 'false',
+      reviewViLabel: s.reviewVi ? 'Hide Vietnamese' : 'Translate & explain in Vietnamese',
+      toggleReviewVi: () => this.setState({ reviewVi: !s.reviewVi }),
+      sentVi: s.sentVi, sentViStr: s.sentVi ? 'true' : 'false', sentViLabel: s.sentVi ? 'Hide Vietnamese' : 'Translate & explain in Vietnamese',
+      toggleSentVi: () => this.setState({ sentVi: !s.sentVi }),
+      grades: grades,
+      doneText: 'You reviewed ' + s.sessionReviewed + ' cards. Everyday phrases come back less often, so your time goes to academic ones.',
+
+      // sentence
+      hasSentItem: !!sItem, noSentItem: !sItem, si: si, sentToday: sentToday, sentGoal: vp.sentN,
+      sText: s.sText, setSText: (e) => this.setState({ sText: e.target.value }), sFeedback: s.sFeedback,
+      nextSent: () => { const idx = sq.findIndex((i) => sItem && i.id === sItem.id); const nx = sq[(idx + 1) % sq.length]; this.setState({ sId: nx ? nx.id : null, sText: '', sFeedback: '', sentVi: false }); },
+      checkSent: () => { if (sItem) this.setState({ sFeedback: this.checkText(sItem, s.sText).msg }); },
+      saveSent: () => {
+        if (!sItem) return;
+        const r = this.checkText(sItem, s.sText);
+        if (!s.sText.trim()) { this.setState({ sFeedback: r.msg }); return; }
+        if (!r.ok) { this.setState({ sFeedback: r.msg + '\n\nFix the sentence so it contains the full phrase, then save.' }); return; }
+        this.setState({ items: s.items.map((i) => i.id === sItem.id ? Object.assign({}, i, { sentences: [{ t: s.sText.trim(), d: T }].concat(i.sentences) }) : i), sText: '', sFeedback: '' });
+        this.say('Sentence saved.');
+      },
+      mySent: sItem ? sItem.sentences.map((x) => ({ t: x.t, d: x.d })) : [], noMySent: !sItem || !sItem.sentences.length,
+
+      // bank
+      topicCards: topicCards, bQuery: s.bQuery, bSource: s.bSource, bKind: s.bKind, bStatus: s.bStatus,
+      setBQuery: (e) => this.setState({ bQuery: e.target.value }), setBSource: (e) => this.setState({ bSource: e.target.value }),
+      setBKind: (e) => this.setState({ bKind: e.target.value }), setBStatus: (e) => this.setState({ bStatus: e.target.value }),
+      bankCountLabel: bankItems.length + (bankItems.length === 1 ? ' phrase' : ' phrases'), bankEmpty: bankItems.length === 0,
+      bankRows: bankItems.map((i) => {
+        const ev = i.kind === 'everyday';
+        const vo = !!s.viOpen[i.id];
+        return Object.assign(viOf(i), {
+          viOpen: vo, viOpenStr: vo ? 'true' : 'false', viLabel: vo ? 'Hide Vietnamese' : 'Vietnamese',
+          toggleVi: () => this.setState((st) => ({ viOpen: Object.assign({}, st.viOpen, { [i.id]: !st.viOpen[i.id] }) })),
+          phrase: i.phrase, meaning: i.meaning, example: i.example, topic: this.topicName(i.topic),
+          source: i.source + (i.note ? ' · ' + i.note : ''),
+          status: this.statusName(i) + (i.reps ? ' · next review ' + (i.due <= T ? 'today' : 'in ' + this.ivLabel(this.diffDays(T, i.due))) : ''),
+          sentences: i.sentences.length + (i.sentences.length === 1 ? ' own sentence' : ' own sentences'),
+          kindLabel: ev ? 'Everyday' : 'Academic', pressed: ev ? 'true' : 'false',
+          kindBg: ev ? '#FFEBDA' : '#EEEAFE', kindFg: ev ? '#8A4209' : '#3B2799', kindBd: ev ? '#E8B98E' : '#B7A8F5',
+          toggleKind: () => this.setState((st) => ({ items: st.items.map((x) => x.id === i.id ? Object.assign({}, x, { kind: ev ? 'academic' : 'everyday' }) : x) })),
+          practise: () => this.goSentence(i.id),
+          remove: () => this.setState((st) => ({ items: st.items.filter((x) => x.id !== i.id) }))
+        });
+      }),
+
+      // add phrase
+      srcText: s.srcText, setSrcText: (e) => this.setState({ srcText: e.target.value }),
+      grabAdd: () => { const r = this.selectionIn(s.srcText); if (r) { this.setState({ fPhrase: r.sel, fExample: r.sentence }); this.say('Captured “' + r.sel + '”. Add the meaning, then save.'); } },
+      fPhrase: s.fPhrase, fMeaning: s.fMeaning, fExample: s.fExample, fSource: s.fSource, fNote: s.fNote, fTopic: s.fTopic, fRelated: s.fRelated,
+      setFPhrase: (e) => this.setState({ fPhrase: e.target.value }), setFMeaning: (e) => this.setState({ fMeaning: e.target.value }),
+      setFExample: (e) => this.setState({ fExample: e.target.value }), setFSource: (e) => this.setState({ fSource: e.target.value }),
+      setFNote: (e) => this.setState({ fNote: e.target.value }), setFTopic: (e) => this.setState({ fTopic: e.target.value }),
+      setFRelated: (e) => this.setState({ fRelated: e.target.value }),
+      fVi: s.fVi, fViNote: s.fViNote,
+      setFVi: (e) => this.setState({ fVi: e.target.value }), setFViNote: (e) => this.setState({ fViNote: e.target.value }),
+      autoVi: () => {
+        const ph = s.fPhrase.trim().toLowerCase();
+        if (!ph) { this.say('Enter the phrase first.'); return; }
+        const known = s.items.find((i) => i.phrase.toLowerCase() === ph && i.vi);
+        if (known) { this.setState({ fVi: known.vi, fViNote: known.viNote }); return; }
+        this.say('Preview: in the live app, AI fills in the Vietnamese meaning and explanation here.');
+      },
+      topicOpts: this.topics().map((t) => ({ v: t[0], l: t[1] })),
+      kindOpts: [['academic', 'Academic', 'Practise deeply, recall the phrase'], ['everyday', 'Everyday / spoken', 'Light review, recognition is enough']].map((k) => {
+        const on = s.fKind === k[0]; return { label: k[1], sub: k[2], pressed: on ? 'true' : 'false', bg: on ? (k[0] === 'academic' ? '#EEEAFE' : '#FFEBDA') : '#FFFFFF', bd: on ? (k[0] === 'academic' ? '#5B3FD9' : '#F0623A') : '#D3CCEE', pick: () => this.setState({ fKind: k[0] }) };
+      }),
+      saveItem: () => {
+        const ph = s.fPhrase.trim(), mn = s.fMeaning.trim();
+        if (!ph || !mn) { this.say('Enter the phrase and its meaning.'); return; }
+        if (s.items.some((i) => i.phrase.toLowerCase() === ph.toLowerCase())) { this.say('That phrase is already in your bank.'); return; }
+        const item = { id: this.nextId++, phrase: ph, meaning: mn, example: s.fExample.trim(), source: s.fSource, note: s.fNote.trim(), topic: s.fTopic, kind: s.fKind, related: s.fRelated.trim(), vi: s.fVi.trim(), viNote: s.fViNote.trim(), reps: 0, interval: 0, ease: 2.5, due: T, added: T, firstLearned: null, sentences: [] };
+        this.setState({ items: [item].concat(s.items), fPhrase: '', fMeaning: '', fExample: '', fRelated: '', fVi: '', fViNote: '' });
+        this.say('Saved “' + ph + '” to ' + this.topicName(s.fTopic) + '.');
+      },
+
+      // library
+      uploadSkill: s.uploadSkill, setUploadSkill: (e) => this.setState({ uploadSkill: e.target.value }),
+      dropBorder: s.dragging ? '#5B3FD9' : '#D3CCEE', dropBg: s.dragging ? '#EEEAFE' : '#FAF9FF',
+      onDragOver: (e) => { e.preventDefault(); if (!s.dragging) this.setState({ dragging: true }); },
+      onDragLeave: () => this.setState({ dragging: false }),
+      onDrop: (e) => { e.preventDefault(); this.addFiles(e.dataTransfer && e.dataTransfer.files, s.uploadSkill); },
+      linkTitle: s.linkTitle, linkUrl: s.linkUrl, linkNote: s.linkNote,
+      setLinkTitle: (e) => this.setState({ linkTitle: e.target.value }), setLinkUrl: (e) => this.setState({ linkUrl: e.target.value }), setLinkNote: (e) => this.setState({ linkNote: e.target.value }),
+      addLink: () => {
+        const title = s.linkTitle.trim(); let url = s.linkUrl.trim();
+        if (!title) { this.say('Give it a title first.'); return; }
+        if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
+        const item = { id: this.nextId++, title: title, skill: s.uploadSkill, kind: url ? 'Link' : 'Note', size: '', date: T, url: url, note: s.linkNote.trim(), done: false };
+        this.setState({ materials: [item].concat(s.materials), linkTitle: '', linkUrl: '', linkNote: '' });
+        this.say('Saved to ' + s.uploadSkill + '.');
+      },
+      libFilters: filters, query: s.query, setQuery: (e) => this.setState({ query: e.target.value }),
+      libItems: libItems, libEmpty: libItems.length === 0,
+      libEmptyText: s.materials.length ? 'No materials match this filter.' : 'Your library is empty. Upload test books, audio and notes to build your own course.',
+      skillMats: skillMats.map((m) => ({ kind: m.kind, title: m.title, url: m.url })), skillMatsEmpty: skillMats.length === 0,
+
+      // reading
+      rq: rq, readingScore: s.rChecked ? rCorrect + ' / ' + RQ.length + ' correct' : '',
+      checkReading: () => this.setState({ rChecked: true }), resetReading: () => this.setState({ rAns: {}, rChecked: false }),
+      pendingSel: s.pendingSel,
+      grabReading: () => { const r = this.selectionIn(PASSAGE); if (r) this.setState({ pendingSel: r.sel, pendingSent: r.sentence }); },
+      savePending: () => this.go('add', { fPhrase: s.pendingSel, fExample: s.pendingSent, fSource: 'Reading', fNote: 'Reading: Bees on the rooftops', srcText: '' }),
+      clearPending: () => this.setState({ pendingSel: '' }),
+
+      // listening
+      noAudio: audios.length === 0, audioUrl: curAudio ? curAudio.url : '', audioTitle: curAudio ? curAudio.title : '', audioMats: audioMats,
+      myAns: s.myAns, keyAns: s.keyAns, setMyAns: (e) => this.setState({ myAns: e.target.value }), setKeyAns: (e) => this.setState({ keyAns: e.target.value }),
+      listenResult: s.listenResult, wrongList: s.wrongList,
+      markListening: () => {
+        const norm = (t) => t.split('\n').map((x) => x.trim().toLowerCase().replace(/\s+/g, ' '));
+        const key = norm(s.keyAns);
+        const mine = norm(s.myAns);
+        if (!key.filter(Boolean).length) { this.setState({ listenResult: 'Paste the answer key first.', wrongList: '' }); return; }
+        let c = 0; const wrong = [];
+        key.forEach((k, i) => { if (!k) return; const opts = k.split('/').map((x) => x.trim()); if (opts.indexOf(mine[i] || '') >= 0) c++; else wrong.push('Q' + (i + 1) + ': you wrote “' + (mine[i] || '—') + '”, answer “' + k + '”'); });
+        const total = key.filter(Boolean).length;
+        this.setState({ listenResult: c + ' / ' + total + ' correct' + (total === 40 ? ' · about band ' + this.fmtBand(this.listeningBand(c)) : ''), wrongList: wrong.join('\n') });
+      },
+
+      // timer
+      showTimer: timerOn, tLabel: s.tLabel, tText: mm + ':' + (ss < 10 ? '0' : '') + ss, timerBtns: timerBtns,
+
+      // writing
+      wTabs: [1, 2].map((n) => { const c = onTab(s.wTask === n); return { label: 'Task ' + n, bg: c.bg, fg: c.fg, bd: c.bd, pick: () => { this.setState({ wTask: n }, () => this.go('writing')); } }; }),
+      wPrompt: s.wPrompts[s.wTask], setWPrompt: (e) => { const v = e.target.value; this.setState((st) => ({ wPrompts: Object.assign({}, st.wPrompts, { [st.wTask]: v }) })); },
+      essay: s.essay, setEssay: (e) => this.setState({ essay: e.target.value }),
+      wordCount: words, minWords: minWords, wcPct: Math.min(100, (words / minWords) * 100), wcColor: words >= minWords ? '#5B3FD9' : '#FF9F43',
+      collectFromEssay: () => { if (!words) { this.say('Write something first.'); return; } this.go('add', { srcText: s.essay, fSource: 'Writing', fNote: 'My Task ' + s.wTask + ' essay, ' + T }); },
+      saveDraft: () => { if (!words) { this.say('Write something first.'); return; } this.setState({ drafts: [{ id: this.nextId++, task: 'Task ' + s.wTask, wTask: s.wTask, date: T, words: words, text: s.essay }].concat(s.drafts) }); this.say('Draft saved.'); },
+      criteria: CRIT.map((c) => ({ name: c[1], hint: c[2], on: !!s.crit[s.wTask + c[0]], toggle: () => this.setState((st) => ({ crit: Object.assign({}, st.crit, { [st.wTask + c[0]]: !st.crit[st.wTask + c[0]] }) })) })),
+      noDrafts: s.drafts.length === 0,
+      drafts: s.drafts.map((d) => ({ task: d.task, date: d.date, words: d.words, load: () => this.setState({ essay: d.text, wTask: d.wTask }) })),
+
+      // speaking
+      sTabs: [1, 2, 3].map((n) => { const c = onTab(s.sPart === n); return { label: 'Part ' + n, bg: c.bg, fg: c.fg, bd: c.bd, pick: () => { this.setState({ sPart: n }, () => this.go('speaking')); } }; }),
+      sIntro: SINTRO[s.sPart], isPart2: s.sPart === 2, notPart2: s.sPart !== 2,
+      sQuestions: (SQ[s.sPart] || []).map((t) => ({ text: t })), sNotes: s.sNotes, setSNotes: (e) => this.setState({ sNotes: e.target.value }),
+      spokenPhrases: spoken,
+
+      // tests
+      tDate: s.tDate, tL: s.tL, tR: s.tR, tW: s.tW, tS: s.tS,
+      setTDate: (e) => this.setState({ tDate: e.target.value }), setTL: (e) => this.setState({ tL: e.target.value }), setTR: (e) => this.setState({ tR: e.target.value }), setTW: (e) => this.setState({ tW: e.target.value }), setTS: (e) => this.setState({ tS: e.target.value }),
+      addScore: () => {
+        const numOk = (v) => { const n = parseFloat(v); return !isNaN(n) && n >= 0 && n <= 9 && (n * 2) % 1 === 0; };
+        if (![s.tL, s.tR, s.tW, s.tS].every(numOk)) { this.say('Enter all four bands (0–9, steps of 0.5).'); return; }
+        const l = parseFloat(s.tL), r = parseFloat(s.tR), w = parseFloat(s.tW), sp = parseFloat(s.tS);
+        const row = { id: this.nextId++, date: s.tDate || T, l: l, r: r, w: w, s: sp, o: this.roundBand((l + r + w + sp) / 4) };
+        const scores = [row].concat(s.scores).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : b.id - a.id));
+        this.setState({ scores: scores, tL: '', tR: '', tW: '', tS: '' });
+        this.say('Score saved · overall ' + this.fmtBand(row.o) + '.');
+      },
+      noScores: s.scores.length === 0,
+      scoreRows: s.scores.map((r) => ({ date: r.date, l: this.fmtBand(r.l), r: this.fmtBand(r.r), w: this.fmtBand(r.w), s: this.fmtBand(r.s), o: this.fmtBand(r.o), remove: () => this.setState((st) => ({ scores: st.scores.filter((x) => x.id !== r.id) })) })),
+
+      // exam (phase 2)
+      examPlan: [
+        { skill: 'Listening', time: '4 parts · 40 questions · ~30 min', detail: 'Audio plays once, countdown timer, answer boxes like the real test, auto-marking and band conversion.' },
+        { skill: 'Reading', time: '3 passages · 40 questions · 60 min', detail: 'Split screen with the passage on the left and questions on the right; highlight and notes.' },
+        { skill: 'Writing', time: 'Task 1 + Task 2 · 60 min', detail: 'Editor with word count and autosave; submits when time is up.' },
+        { skill: 'Speaking', time: '3 parts · 11–14 min', detail: 'Questions by part, record your answers, Part 2 preparation timer.' }
+      ],
+
+
+      // flashcards & tests
+      vtSetup: s.vtView === 'setup', vtFlash: s.vtView === 'flash', vtQuiz: s.vtView === 'quiz', vtResult: s.vtView === 'result',
+      vtBack: () => { clearInterval(this.qiv); this.setState({ vtView: 'setup' }); },
+      vtSource: s.vtSource, vtTopic: s.vtTopic,
+      setVtSource: (e) => this.setState({ vtSource: e.target.value }), setVtTopic: (e) => this.setState({ vtTopic: e.target.value }),
+      poolLabel: vtPool.length + (vtPool.length === 1 ? ' phrase matches' : ' phrases match') + (s.items.length < 4 ? ' · add at least 4 phrases for tests' : ''),
+      poolColor: vtPool.length && s.items.length >= 4 ? '#166534' : '#C2410C',
+      countOpts: [5, 10, 15, 20].map((n) => Object.assign(pill(s.vtCount === n, '#FF9F43'), { label: String(n), fg: s.vtCount === n ? '#1E1B3A' : '#1E1B3A', pick: () => this.setState({ vtCount: n }) })),
+      speedOpts: [['relaxed', 'Relaxed · 30s per question'], ['normal', 'Normal · 20s'], ['fast', 'Fast · 12s']].map((o) => Object.assign(pill(s.vtSpeed === o[0], '#5B3FD9'), { label: o[1], pick: () => this.setState({ vtSpeed: o[0] }) })),
+      typeOpts: Object.keys(QT).map((k) => { const on = !!s.vtTypes[k]; return { label: QT[k][0], mark: on ? '✓' : '+', pressed: on ? 'true' : 'false', bg: on ? QT[k][2] : '#FFFFFF', fg: on ? QT[k][3] : '#5B5775', bd: on ? QT[k][1] : '#D3CCEE',
+        toggle: () => { const nt = Object.assign({}, s.vtTypes, { [k]: !on }); if (!Object.keys(nt).some((x) => nt[x])) { this.say('Keep at least one question type.'); return; } this.setState({ vtTypes: nt }); } }; }),
+      qzSetupLabel: s.vtCount + ' questions, ' + Math.round(s.vtCount * per / 60 * 10) / 10 + ' min',
+      startFlash: () => this.startFlash(), startQuiz: () => this.startQuiz(),
+      noQzHistory: s.qzHistory.length === 0,
+      qzHistory: s.qzHistory.map((h) => { const p = Math.round(h.right / h.total * 100); return { pct: p, score: h.right + ' / ' + h.total, speed: { relaxed: 'Relaxed', normal: 'Normal', fast: 'Fast' }[h.speed], when: h.when, color: p >= 80 ? '#16A34A' : p >= 50 ? '#5B3FD9' : '#F0623A' }; }),
+
+      fcFrontOpts: [['phrase', 'Front: phrase'], ['meaning', 'Front: meaning']].map((o) => Object.assign(pill(s.fcFront === o[0], '#E8488A'), { label: o[1], pick: () => this.setState({ fcFront: o[0], fcFlip: false }) })),
+      fcActive: !!fcCur, fcDone: s.vtView === 'flash' && !fcCur && s.fcIds.length > 0,
+      fcPos: Math.min(s.fcIdx + 1, s.fcIds.length) + ' of ' + s.fcIds.length, fcPct: s.fcIds.length ? s.fcIdx / s.fcIds.length * 100 : 0,
+      fcKnownN: fcKnownN, fcLearnN: fcLearnIds.length, fcRot: s.fcFlip ? 180 : 0,
+      fc: fcCur ? Object.assign({}, kindStyle(fcCur.kind), { topic: this.topicName(fcCur.topic), front: s.fcFront === 'phrase' ? fcCur.phrase : fcCur.meaning, back: s.fcFront === 'phrase' ? fcCur.meaning : fcCur.phrase, example: fcCur.example, vi: fcCur.vi || '' }) : { kindBg: '', kindFg: '', kindLabel: '', topic: '', front: '', back: '', example: '', vi: '' },
+      fcFlipCard: () => this.setState({ fcFlip: !s.fcFlip }),
+      fcKnow: () => fcMark('know'), fcLearning: () => fcMark('learn'),
+      fcPrev: () => this.setState({ fcIdx: Math.max(0, s.fcIdx - 1), fcFlip: false }), fcNext: () => this.setState({ fcIdx: s.fcIdx + 1, fcFlip: false }),
+      fcDoneText: 'You know ' + fcKnownN + ' of ' + s.fcIds.length + ' cards' + (fcLearnIds.length ? ' and ' + fcLearnIds.length + ' need more practice.' : '. Great work!'),
+      fcHasLearning: fcLearnIds.length > 0, fcAgainLearning: () => this.startFlash(this.shuffle(fcLearnIds)),
+
+      qzPos: (s.qzIdx + 1) + ' of ' + s.qz.length, qzClock: mmq + ':' + (ssq < 10 ? '0' : '') + ssq,
+      qzTimePct: s.qzTotal ? s.qzLeft / s.qzTotal * 100 : 0, qzBarColor: lowTime ? '#FF9F43' : '#FFD166', qzClockColor: lowTime ? '#FFB37A' : '#FFFFFF',
+      finishQuiz: () => this.finishQuiz(), q: qv,
+      qzText: s.qzText, setQzText: (e) => this.setState({ qzText: e.target.value }),
+      qzCheckText: () => { if (!q0 || a0) return; this.qAnswer(this.norm(s.qzText) === this.norm(q0.answer), s.qzText.trim() || '(blank)'); },
+      qzKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); if (q0 && !a0) this.qAnswer(this.norm(s.qzText) === this.norm(q0.answer), s.qzText.trim() || '(blank)'); else if (a0) this.qNext(); } },
+      qzUndo: () => { if (!a0) this.setState({ qzOrder: s.qzOrder.slice(0, -1) }); },
+      qzNext: () => this.qNext(), qzNextLabel: s.qzIdx >= s.qz.length - 1 ? 'See results' : 'Next question',
+
+      rPct: rPct, rScore: rRight + ' / ' + s.qz.length,
+      rTitle: rPct >= 90 ? 'Excellent!' : rPct >= 70 ? 'Nice work!' : rPct >= 50 ? 'Getting there' : 'Keep practising',
+      rSub: 'Time used: ' + (lastRec ? Math.floor(lastRec.used / 60) + ':' + ((lastRec.used % 60) < 10 ? '0' : '') + (lastRec.used % 60) : '–') + ' · ' + wrongIds.length + (wrongIds.length === 1 ? ' phrase' : ' phrases') + ' to work on',
+      rHasWrong: wrongIds.length > 0,
+      retryWrong: () => this.startQuiz(s.items.filter((i) => wrongIds.indexOf(i.id) >= 0)),
+      wrongToReview: () => { this.setState({ items: s.items.map((i) => wrongIds.indexOf(i.id) >= 0 && i.reps > 0 ? Object.assign({}, i, { due: T, interval: Math.min(i.interval, 1) }) : i) }); this.say(wrongIds.length + ' phrases added to today\'s review.'); },
+      rByType: Object.keys(byType).map((k) => ({ label: QT[k][0], tint: QT[k][2], dark: QT[k][3], score: byType[k][0] + ' / ' + byType[k][1] })),
+      rRows: s.qz.map((q, i) => { const a = s.qzAns[i]; const ok = a && a.correct; return { mark: ok ? '✓' : '✗', color: ok ? '#166534' : '#C2410C', phrase: q.phrase, typeLabel: QT[q.type][0], given: a ? a.given : '— (time up)', answer: q.answer, wrong: !ok }; }),
+
+      // AI tutor
+      showFab: scr !== 'tutor', showMini: s.chatOpen && scr !== 'tutor',
+      fabLabel: s.chatOpen ? 'Close tutor' : 'Ask AI tutor', chatOpenStr: s.chatOpen ? 'true' : 'false',
+      toggleChat: () => this.setState({ chatOpen: !s.chatOpen }),
+      openTutor: () => this.go('tutor', { chatOpen: false }),
+      newChat: () => this.setState({ activeChat: null, chatInput: '' }),
+      chatQuery: s.chatQuery, setChatQuery: (e) => this.setState({ chatQuery: e.target.value }),
+      chatList: chatList, noChatList: chatList.length === 0, noChatText: s.chats.length ? 'No chats match.' : 'Your conversations will be saved here.',
+      chatTitle: chat ? chat.title : 'New conversation',
+      msgs: chat ? chat.msgs.map((m) => ({ text: m.text, align: m.role === 'user' ? 'flex-end' : 'flex-start', bg: m.role === 'user' ? '#5B3FD9' : '#F5F3FF', fg: m.role === 'user' ? '#FFFFFF' : '#1E1B3A' })) : [],
+      chatEmpty: !chat || chat.msgs.length === 0, hasFollowups: !!chat && chat.msgs.length > 0 && !s.typing,
+      typing: s.typing, starters: starters, useCtx: s.useCtx, toggleCtx: () => this.setState({ useCtx: !s.useCtx }), ctxChips: ctxChips,
+      chatInput: s.chatInput, setChatInput: (e) => this.setState({ chatInput: e.target.value }),
+      chatKey: (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); this.sendChat(s.chatInput); } },
+      sendChat: () => this.sendChat(s.chatInput)
+    };
+  }
+}
+</script>
+</body>
+</html>

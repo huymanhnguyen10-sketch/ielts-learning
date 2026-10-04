@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* Design tokens from design/SPEC.md §3 (colourful theme) */
+@theme {
+  --color-ink: #1e1b3a;
+  --color-ink-2: #3a2a85; /* sidebar card */
+  --color-ink-3: #4b38a3; /* active nav / dark button */
+  --color-ink-4: #6450c2; /* dark button border */
+  --color-sidebar: #2a1b6b;
+  --color-muted: #5b5775;
+  --color-muted-2: #3d3a5c;
+  --color-on-dark: #c9c0f2;
+  --color-on-dark-2: #dcd5f8;
+  --color-on-dark-3: #a99de6;
+  --color-ground: #f5f3ff;
+  --color-ground-2: #f8f6ff;
+  --color-surface: #ffffff;
+  --color-line: #e4e0f5;
+  --color-line-2: #eeebf8;
+  --color-track: #ece8fa;
+  --color-input: #d3ccee;
+  --color-primary: #5b3fd9;
+  --color-primary-hover: #4930b8;
+  --color-primary-soft: #eeeafe;
+  --color-primary-text: #3b2799;
+  --color-primary-ring: #b7a8f5;
+  --color-highlight: #ffd166;
+  --color-accent: #ff9f43;
+  --color-accent-soft: #ffebda;
+  --color-accent-text: #8a4209;
+  --color-accent-deep: #3d1e04;
+  --color-accent-line: #e8b98e;
+  --color-accent-warn: #c2410c;
+  --color-accent-wrong: #7c2d12;
+  --color-listening: #0ea5b7;
+  --color-reading: #2563eb;
+  --color-writing: #f0623a;
+  --color-speaking: #a855f7;
+  --color-listening-tint: #e3f7fa;
+  --color-reading-tint: #e8f0fe;
+  --color-writing-tint: #feece6;
+  --color-speaking-tint: #f5ebfe;
+  --color-listening-dark: #0b7c8a;
+  --color-writing-dark: #c2410c;
+  --color-vocab: #e8488a;
+  --color-vocab-dark: #c02c6c;
+  --color-library: #16a34a;
+  --color-progress: #5b3fd9;
+  --color-vi-bg: #fff8ef;
+  --color-vi-line: #f1d3b3;
+  --color-vi-text: #3d1e04;
+
+  --font-heading: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-body: var(--font-ibm-plex), "IBM Plex Sans", system-ui, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-primary);
+}
+a:hover {
+  color: var(--color-primary-text);
+}
+
+h1,
+h2,
+h3,
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Shared controls (ported from the prototype's helmet styles) */
+.btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--color-input);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+.btn:hover {
+  background: #f1eefd;
+  color: var(--color-ink);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-p {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+.btn-p:hover {
+  background: var(--color-primary-hover);
+  color: #ffffff;
+}
+.btn-dark {
+  background: var(--color-ink-3);
+  color: #ffffff;
+  border-color: var(--color-ink-4);
+}
+.btn-dark:hover {
+  background: var(--color-ink-4);
+  color: #ffffff;
+}
+.btn-accent {
+  background: var(--color-highlight);
+  color: var(--color-ink);
+  border-color: var(--color-highlight);
+  font-weight: 600;
+}
+.btn-accent:hover {
+  background: #f5c54f;
+  color: var(--color-ink);
+}
+.btn-vi {
+  background: var(--color-vi-bg);
+  border-color: var(--color-accent-line);
+  color: var(--color-accent-text);
+}
+.btn-vi:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+}
+.btn-sm {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+.btn:focus-visible,
+.inp:focus-visible,
+.nav:focus-visible {
+  outline: 3px solid var(--color-primary-ring);
+  outline-offset: 2px;
+}
+
+.inp {
+  font: inherit;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-input);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-sizing: border-box;
+  width: 100%;
+}
+textarea.inp {
+  resize: vertical;
+  line-height: 1.6;
+}
+select.inp {
+  appearance: auto;
+}
+
+.nav {
+  font: inherit;
+  font-size: 15px;
+  text-align: left;
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  text-decoration: none;
+  background: transparent;
+  color: var(--color-on-dark-2);
+}
+.nav:hover {
+  background: var(--color-ink-2);
+  color: #ffffff;
+}
+.nav[aria-current="page"] {
+  background: var(--color-ink-3);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+}
+
+.chip {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  display: inline-flex;
+  align-items: center;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.eyebrow {
+  font-size: 13px;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.eyebrow-pill {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--color-primary);
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--color-track);
+  overflow: hidden;
+}
+.track > div {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Vietnamese "translate & explain" panel (SPEC §6) */
+.vi-panel {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--color-vi-bg);
+  border: 1px solid var(--color-vi-line);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-vi-text);
+}

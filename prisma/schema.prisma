@@ -1,0 +1,214 @@
+// Band Up — IELTS study hub data model (see design/SPEC.md §5)
+// Dates are stored as local "YYYY-MM-DD" strings so that due dates, streaks and
+// "today" always agree with the learner's wall clock.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Phrase {
+  id           Int         @id @default(autoincrement())
+  phrase       String
+  meaning      String
+  example      String      @default("")
+  source       String // Writing | Reading | Listening | Speaking
+  sourceNote   String      @default("")
+  topic        String // key from lib/topics.ts, e.g. "education"
+  kind         String // academic | everyday
+  related      String      @default("")
+  vi           String      @default("") // Vietnamese meaning (SPEC §6 "Translate & explain")
+  viNote       String      @default("") // short Vietnamese explanation
+  reps         Int         @default(0)
+  interval     Int         @default(0) // days
+  ease         Float       @default(2.5)
+  due          String // YYYY-MM-DD
+  firstLearned String? // YYYY-MM-DD
+  createdAt    DateTime    @default(now())
+  sentences    Sentence[]
+  reviews      ReviewLog[]
+
+  @@index([due])
+  @@index([topic])
+}
+
+model Sentence {
+  id        Int      @id @default(autoincrement())
+  phraseId  Int
+  text      String
+  date      String // YYYY-MM-DD
+  createdAt DateTime @default(now())
+  phrase    Phrase   @relation(fields: [phraseId], references: [id], onDelete: Cascade)
+
+  @@index([phraseId])
+  @@index([date])
+}
+
+model ReviewLog {
+  id        Int      @id @default(autoincrement())
+  phraseId  Int
+  grade     String // again | hard | good | easy
+  date      String // YYYY-MM-DD
+  createdAt DateTime @default(now())
+  phrase    Phrase   @relation(fields: [phraseId], references: [id], onDelete: Cascade)
+
+  @@index([date])
+}
+
+model Material {
+  id        Int      @id @default(autoincrement())
+  title     String
+  skill     String // Reading | Listening | Writing | Speaking | Vocabulary | Grammar | General
+  kind      String // PDF | Audio | Video | Image | Doc | File | Link | Note
+  size      Int? // bytes, for uploaded files
+  url       String? // external link, or /uploads/... for files
+  filePath  String? // relative path on disk for uploaded files
+  mimeType  String?
+  note      String   @default("")
+  studied   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([skill])
+}
+
+model PlanTask {
+  id        Int      @id @default(autoincrement())
+  text      String
+  done      Boolean  @default(false)
+  date      String // YYYY-MM-DD the task was created for
+  createdAt DateTime @default(now())
+}
+
+model Score {
+  id        Int      @id @default(autoincrement())
+  date      String // YYYY-MM-DD
+  listening Float
+  reading   Float
+  writing   Float
+  speaking  Float
+  overall   Float
+  createdAt DateTime @default(now())
+
+  @@index([date])
+}
+
+model Draft {
+  id        Int      @id @default(autoincrement())
+  task      Int // 1 | 2
+  prompt    String
+  text      String
+  words     Int
+  date      String // YYYY-MM-DD
+  createdAt DateTime @default(now())
+}
+
+model Chat {
+  id        Int           @id @default(autoincrement())
+  title     String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  messages  ChatMessage[]
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  chatId    Int
+  role      String // user | assistant
+  text      String
+  createdAt DateTime @default(now())
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+
+  @@index([chatId])
+}
+
+// Quick-test results (Flashcards & tests page).
+model QuizResult {
+  id             Int      @id @default(autoincrement())
+  date           String // local "YYYY-MM-DD HH:mm"
+  right          Int
+  total          Int
+  speed          String // relaxed | normal | fast
+  usedSeconds    Int      @default(0)
+  typesJson      String   @default("[]") // enabled question types
+  byTypeJson     String   @default("{}") // { type: [right, total] }
+  wrongPhraseIds String   @default("[]") // JSON array of phrase ids
+  createdAt      DateTime @default(now())
+}
+
+// Speaking question bank (Parts 1–3) with the learner's own answers.
+model SpeakingQuestion {
+  id         Int      @id @default(autoincrement())
+  part       Int // 1 | 2 | 3
+  topic      String // e.g. "Work & Study", "Hometown"
+  question   String
+  myAnswer   String   @default("")
+  sampleUrl  String? // link to sample answers / related questions doc
+  sourceNote String   @default("") // e.g. "Lesson 2.0 (tutor sheet)"
+  sortOrder  Int      @default(0)
+  sourceRef  String?  @unique // idempotent import key
+  createdAt  DateTime @default(now())
+
+  @@index([part, topic])
+}
+
+// Reading passage bank. questionsJson = JSON array of
+// { n, type: "tfng"|"ynng"|"mcq"|"gap"|"heading", text, options?, answer (string|string[]) }
+model Passage {
+  id            Int      @id @default(autoincrement())
+  title         String
+  source        String // e.g. "IELTS.org official sample", "Tutor sheet lesson 2.0"
+  sourceUrl     String?
+  instructions  String   @default("")
+  text          String
+  questionsJson String   @default("[]")
+  sourceRef     String?  @unique
+  createdAt     DateTime @default(now())
+}
+
+// Listening test bank: official sample tasks / full tests with answer keys.
+model ListeningTest {
+  id            Int      @id @default(autoincrement())
+  title         String
+  source        String
+  sourceUrl     String? // interactive test / audio page
+  audioUrl      String? // direct audio file if available (or /uploads/...)
+  transcriptUrl String?
+  answerKey     String   @default("") // one answer per line, "a/b" alternatives
+  note          String   @default("")
+  sourceRef     String?  @unique
+  createdAt     DateTime @default(now())
+}
+
+// Writing prompt bank (Task 1 / Task 2) with optional model answers.
+model WritingPrompt {
+  id          Int      @id @default(autoincrement())
+  task        Int // 1 | 2
+  title       String
+  prompt      String
+  imageUrl    String?
+  modelAnswer String   @default("")
+  source      String
+  sourceUrl   String?
+  sourceRef   String?  @unique
+  createdAt   DateTime @default(now())
+
+  @@index([task])
+}
+
+// Single row (id = 1).
+model Settings {
+  id            Int    @id @default(1)
+  targetBand    Float  @default(6.5)
+  examDate      String // YYYY-MM-DD
+  minutesPerDay Int    @default(20)
+  goalPhrases   Int    @default(500)
+  reviewMode    String @default("produce") // produce | recognize
+  writingPrompt1 String @default("The graph shows the number of visitors to three museums between 2010 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.")
+  writingPrompt2 String @default("Some people believe that university education should be free for all students. Others think students should pay for their own studies. Discuss both views and give your own opinion.")
+  speakingNotes String @default("")
+  tutorUseContext Boolean @default(true)
+}
